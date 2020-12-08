@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block content %}
+      <!-- Header/Home -->
+<div id='graph-table'>
+    <table>
+        <tr>
+            <th>
+                <h2> Running </h2>
+                <form action='/graphs' method='GET'>
+                    <input type="hidden" name="getgraph" value="total_distance_run" />
+                    <button type='submit'> Total Distance Run</button>
+                </form>
+                <form action='/graphs' method='GET'>
+                    <input type="hidden" name="getgraph" value="run_afstand_per_week" />
+                    <button type='submit'> Km's per week</button>
+                </form>
+                <form action='/graphs' method='GET'>
+                    <input type="hidden" name="getgraph" value="run_afstand_per_month" />
+                    <button type='submit'> Km's per month</button>
+                </form>
+                <form action='/graphs' method='GET'>
+                    <input type="hidden" name="getgraph" value="heartrate_speed_run" />
+                    <button type='submit'> Ratio Hearttate to speed in Run</button>
+                </form>
+                <form action='/graphs' method='GET'>
+                    <input type="hidden" name="getgraph" value="progress" />
+                    <button type='submit' style='background-color:red'> Progress Run</button>
+                </form>
+                <form action='/graphs' method='GET'>
+                    <input type="hidden" name="getgraph" value="heartrate_years" />
+                    <button type='submit'> Heartrate over Years</button>
+                </form>
+            </th>
+            <th>
+                <h2> Bike </h2>
+                <form action='/graphs' method='GET'>
+                    <input type="hidden" name="getgraph" value="total_distance_bike" />
+                    <button type='submit'> Total Distance Bike</button>
+                </form>
+                <form action='/graphs' method='GET'>
+                    <input type="hidden" name="getgraph" value="bike_afstand_per_week" />
+                    <button type='submit'> Km's per week</button>
+                </form>
+                <form action='/graphs' method='GET'>
+                    <input type="hidden" name="getgraph" value="bike_afstand_per_month" />
+                    <button type='submit'> Km's per month</button>
+                </form>
+                <h2> Swim </h2>
+                <form action='/graphs' method='GET'>
+                    <input type="hidden" name="getgraph" value="heartrate_swim" />
+                    <button type='submit'> Heartrate over years</button>
+                </form>
+            </th>
+            <th>
+                <h2> Total </h2>
+                <form action='/graphs' method='GET'>
+                    <input type="hidden" name="getgraph" value="effort" />
+                    <button type='submit'> Effort</button>
+                </form>
+                <form action='/graphs' method='GET'>
+                    <input type="hidden" name="getgraph" value="time_week" />
+                    <button type='submit'> Time per week </button>
+                </form>
+                <form action='/graphs' method='GET'>
+                    <input type="hidden" name="getgraph" value="time_month" />
+                    <button type='submit'> Time per month </button>
+                </form>
+                <!-- <form action='/graphs' method='GET'>
+                    <input type="hidden" name="getgraph" value="machine_learning" />
+                    <button type='submit'> machine learning </button> -->
+                </form>
+                <form action='/graphs' method='GET'>
+                    <input type="hidden" name="getgraph" value="stacked_time" />
+                    <button type='submit'> Stacked Time </button>
+                </form>
+                <form action='/graphs' method='GET'>
+                    <input type="hidden" name="getgraph" value="piechart_time" />
+                    <button type='submit'> PieChart Time </button>
+                </form>
+                <form action='/graphs' method='GET'>
+                    <input type="hidden" name="getgraph" value="races" />
+                    <button type='submit'> Races </button>
+                </form>
+            </th>
+        </tr>
+    </table>    
+</div>
+<div id='right-side'>
+    THE CANVAS
+    <canvas data-processing-sources=Reversi.pde></canvas>
+    <!-- <label  for="fname">End Date</label> 
+    <input id='year1' name="year1" > </input>
+    <label  for="fname">End Date</label> 
+    <input name="year2" type="date"/>
+    <br/><br/> -->
+    <!-- <img src={{graph}}> -->
+    EINDE CANVAS
+</div>
+    
+{% endblock %}

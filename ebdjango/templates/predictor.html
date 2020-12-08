@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="w3-padding-large w3-content" style="max-width:2000px;" id="main">
+ 
+
+    <form action='/predictor' method='GET'>
+        <label for="fname">Distance</label>
+        <input value=5 name="distance" type="number"/> <br><br>
+        <label for="fname">Elevation</label>
+        <input value=50 name="elevation" type="number"/> <br><br>
+        <label for="fname">Heartrate</label>
+        <input value=160 name="heartrate" value="heartrate" type="number"/><br><br>
+        <label for="fname">Date</label>
+        <input value=1 name="date" value="date" type="number"/><br><br>
+        <button type='submit'> Predict</button>
+    </form>
+    <div id='answer'>
+        <label for="fname">Predicted time in the beginning</label><br>
+        {{p1}}<br>
+        <label for="fname">Predicted time now</label><br>
+        {{p2}}<br>
+    </div>
+</div>
+{% endblock %}
