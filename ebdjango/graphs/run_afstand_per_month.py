@@ -34,7 +34,7 @@ def run_afstand_per_month(activities):
     min_month = list(month_afstand.keys())[-1]
     fig = plt.figure()
     plt.bar(months, performance, align='center', alpha=0.8,color = 'black')
-    plt.xticks(np.arange(0, min_month, step=round(min_month/10)))
+    plt.xticks(np.arange(0, min_month, step=6))
     plt.ylabel("Km's")
     plt.xlabel("Months Ago")
     tmpfile = BytesIO()

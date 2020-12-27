@@ -59,4 +59,3 @@ def races(activities):
     fig.savefig(tmpfile, format='png')
     encoded = base64.b64encode(tmpfile.getvalue()).decode('utf-8')
     return 'data:image/png;base64,{}'.format(encoded)
-    return "hoi"

@@ -28,7 +28,7 @@ def total_distance_run(activities):
     plt.fill_between(list(dag_totaal)[:-1],list(dag_totaal.values())[:-1], color = '#222222')
 
     plt.grid(color = 'black', linewidth = 0.2)
-    ax.get_xaxis().set_major_locator(mdates.MonthLocator(interval=4))
+    ax.get_xaxis().set_major_locator(mdates.MonthLocator(interval=8))
     ax.get_xaxis().set_major_formatter(mdates.DateFormatter("%b %Y"))
     plt.xlabel("Date")
     plt.ylabel("Kms")

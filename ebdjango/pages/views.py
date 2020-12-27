@@ -37,8 +37,8 @@ def start_view(request, **kwargs):
     activities = []
     #Activity.objects.all().delete()
     if len(Activity.objects.filter(user=request.user)) == 0 and request.GET.get('code','') == '':
-        #return redirect("https://www.strava.com/oauth/authorize?client_id=50341&redirect_uri=http://localhost:8000/start&response_type=code&scope=activity:read_all", code=302)
-        return redirect("https://www.strava.com/oauth/authorize?client_id=50341&redirect_uri=http://strava.tjeerdsantema.nl/start&response_type=code&scope=activity:read_all", code=302)
+        return redirect("https://www.strava.com/oauth/authorize?client_id=50341&redirect_uri=http://localhost:8000/start&response_type=code&scope=activity:read_all", code=302)
+        #return redirect("https://www.strava.com/oauth/authorize?client_id=50341&redirect_uri=http://strava.tjeerdsantema.nl/start&response_type=code&scope=activity:read_all", code=302)
     elif len(Activity.objects.filter(user=request.user)) == 0:
         code = request.GET.get('code','')
         pool = ThreadPool(processes=1)
@@ -55,25 +55,7 @@ def graph_view(request, **kwargs):
         activities.clear()
         for i in Activity.objects.filter(user=request.user):
             activities.append(i)
-    # url = "http://localhost:8000/graphs"
-    # req = requests.get(url)
-    # soup = BeautifulSoup(req.content, 'html.parser')
-    #print(soup)
-    # year1 = soup.find("input", {"id": "year1"}).get('value')
-    # with open('templates/graph.html', 'r') as f:
-    #     contents = f.read()
-    #     soup = BeautifulSoup(contents, 'html')
-    #     print(soup)
-    #     year1 = 'niks'
-    #     try:
-    #         year1 = soup.find("input", {"id": "year1"}).get('value')
-    #     except:
-    #         pass
-    # print("Year1")
-    # print(year1)
-    # print("------------")
-    # print(request.GET)
-    # print("------------")
+    
     context['graph'] = getattr(getattr(graphs, the_graph),the_graph)(activities)
     return render(request,"graph.html",context)
 
