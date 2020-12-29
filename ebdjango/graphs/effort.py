@@ -9,12 +9,12 @@ import re
 import base64
 from io import BytesIO
 
-def effort(activities):
+def effort(activities, begin_date, end_date):
     week_afstand = {}
     date_afstand = {}
 
     for activity in activities:
-        if activity.suffer != None:
+        if activity.suffer != None and activity.date > begin_date and activity.date < end_date:
             date_afstand[activity.date] = activity.suffer
 
     minimum_year = list(date_afstand.keys())[-1].isocalendar()[0]

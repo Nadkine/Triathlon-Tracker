@@ -9,11 +9,11 @@ import re
 import base64
 from io import BytesIO
 
-def bike_afstand_per_month(activities):
+def bike_afstand_per_month(activities, begin_date, end_date):
     month_afstand = {}
     date_afstand = {}
     for activity in activities:
-        if activity.activity_type=='Ride':
+        if activity.activity_type=='Ride' and activity.date > begin_date and activity.date < end_date:
             date_afstand[activity.date] = activity.distance
     print(date_afstand.keys())
     minimum_year = list(date_afstand.keys())[-1].isocalendar()[0]

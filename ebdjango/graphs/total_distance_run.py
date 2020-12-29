@@ -11,11 +11,12 @@ from io import BytesIO
 from collections import OrderedDict
 import matplotlib.dates as mdates
 
-def total_distance_run(activities):
+def total_distance_run(activities, begin_date, end_date):
     dag_afstand = {}
     for activity in activities:
-        if activity.activity_type=='Run':
-            dag_afstand[activity.date] = activity.distance    
+        if activity.activity_type=='Run' and activity.date > begin_date and activity.date < end_date:
+            dag_afstand[activity.date] = activity.distance  
+
     totaal_afstand = 0           
     dag_totaal = {}
     dag_afstand =OrderedDict(sorted(dag_afstand.items()))

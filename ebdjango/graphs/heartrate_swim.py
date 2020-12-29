@@ -9,7 +9,7 @@ import re
 import base64
 from io import BytesIO
 
-def heartrate_swim(activities):
+def heartrate_swim(activities, begin_date, end_date):
     heart_rates = []
     speeds = []
     dates = []
@@ -20,7 +20,7 @@ def heartrate_swim(activities):
             first = False
             first_day = activity.date
             
-        if  activity.activity_type=='Swim':
+        if  activity.activity_type=='Swim' and activity.date > begin_date and activity.date < end_date:
             heart_rates.append(activity.heartrate)
             speeds.append(activity.speed)
             days = activity.date - first_day

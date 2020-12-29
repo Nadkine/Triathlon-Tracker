@@ -11,10 +11,10 @@ from io import BytesIO
 from collections import OrderedDict
 import matplotlib.dates as mdates
 
-def total_distance_bike(activities, begin_date, end_date):   
+def total_distance_swim(activities, begin_date, end_date):   
     dag_afstand = {}
     for activity in activities:
-        if activity.activity_type=='Ride' and activity.date > begin_date and activity.date < end_date:
+        if activity.activity_type=='Swim' and activity.date > begin_date and activity.date < end_date:
             dag_afstand[activity.date] = activity.distance
                 
     totaal_afstand = 0           

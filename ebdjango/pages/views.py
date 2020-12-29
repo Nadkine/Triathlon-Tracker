@@ -17,7 +17,7 @@ import graphs
 from graphs import total_distance_bike, effort, progress, heartrate_speed_run,total_distance_run, \
                     time_week, time_month, time,run_afstand_per_week, run_afstand_per_month, heartrate_years, heartrate_swim, average_heartrate_run, \
                     bike_afstand_per_week, bike_afstand_per_month, progress2, machine_learning, stacked_time, piechart_time, \
-                    races
+                    races, total_distance_swim
 import pyglet
 import runpy
 from django.shortcuts import redirect
@@ -32,13 +32,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 context = {}
 activities = []
-year1='niks'
 def start_view(request, **kwargs):
     activities = []
-    #Activity.objects.all().delete()
+    Activity.objects.all().delete()
     if len(Activity.objects.filter(user=request.user)) == 0 and request.GET.get('code','') == '':
-        return redirect("https://www.strava.com/oauth/authorize?client_id=50341&redirect_uri=http://localhost:8000/start&response_type=code&scope=activity:read_all", code=302)
-        #return redirect("https://www.strava.com/oauth/authorize?client_id=50341&redirect_uri=http://strava.tjeerdsantema.nl/start&response_type=code&scope=activity:read_all", code=302)
+        #return redirect("https://www.strava.com/oauth/authorize?client_id=50341&redirect_uri=http://localhost:8000/start&response_type=code&scope=activity:read_all", code=302)
+        return redirect("https://www.strava.com/oauth/authorize?client_id=50341&redirect_uri=http://strava.tjeerdsantema.nl/start&response_type=code&scope=activity:read_all", code=302)
     elif len(Activity.objects.filter(user=request.user)) == 0:
         code = request.GET.get('code','')
         pool = ThreadPool(processes=1)
@@ -50,13 +49,22 @@ def start_view(request, **kwargs):
         return redirect("/graphs", code=302)   
     
 def graph_view(request, **kwargs):
+    end_date = request.GET.get('endDate','')
     the_graph = request.GET.get('getgraph','total_distance_run')
+    begin_date = datetime.fromisoformat(request.GET.get('beginDate','2010-01-01')).date()
+    if end_date != '':
+        end_date = datetime.fromisoformat(end_date).date()
+    else:
+        end_date = datetime.fromisoformat(datetime.now().strftime("%Y-%m-%d")).date()
+
     if len(activities) != Activity.objects.filter(user=request.user):
         activities.clear()
         for i in Activity.objects.filter(user=request.user):
             activities.append(i)
-    
-    context['graph'] = getattr(getattr(graphs, the_graph),the_graph)(activities)
+
+    context['graph'] = getattr(getattr(graphs, the_graph),the_graph)(activities,begin_date,end_date)
+    context['beginDate'] = str(begin_date)
+    context['endDate'] = str(end_date)
     return render(request,"graph.html",context)
 
 def predictor_view(request):

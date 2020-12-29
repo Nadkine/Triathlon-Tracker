@@ -10,7 +10,7 @@ from mpl_toolkits.mplot3d import Axes3D
 import base64
 from io import BytesIO
 
-def heartrate_speed_run(activities):
+def heartrate_speed_run(activities, begin_date, end_date):
     activites_url = "https://www.strava.com/api/v3/athlete/activities"
 
     first = True
@@ -24,7 +24,7 @@ def heartrate_speed_run(activities):
         if first:
             first = False
             first_day = activity.date
-        if  activity.activity_type=='Run':
+        if  activity.activity_type=='Run' and activity.date > begin_date and activity.date < end_date:
             heart_rates.append(activity.heartrate)
             speeds.append(activity.speed)
             ratio.append(activity.speed / activity.heartrate)

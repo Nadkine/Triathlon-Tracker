@@ -9,7 +9,7 @@ import re
 import base64
 from io import BytesIO
 
-def progress(activities):
+def progress(activities, begin_date, end_date):
     jaar = 2020
     hoeveelheid = 2000
     begin = 365
@@ -21,7 +21,7 @@ def progress(activities):
         dag_verschil[n] = 0
 
     for activity in activities:
-        if activity.activity_type=='Run':
+        if activity.activity_type=='Run' and activity.date > begin_date and activity.date < end_date:
             year = activity.date.year
             if year == jaar:   
                 dag = activity.date.timetuple()[7]

@@ -7,90 +7,53 @@
         <tr>
             <th>
                 <h2> Running </h2>
-                <form action='/graphs' method='GET'>
-                    <input type="hidden" name="getgraph" value="total_distance_run" />
-                    <button type='submit'> Total Distance Run</button>
-                </form>
-                <form action='/graphs' method='GET'>
-                    <input type="hidden" name="getgraph" value="run_afstand_per_week" />
-                    <button type='submit'> Km's per week</button>
-                </form>
-                <form action='/graphs' method='GET'>
-                    <input type="hidden" name="getgraph" value="run_afstand_per_month" />
-                    <button type='submit'> Km's per month</button>
-                </form>
-                <form action='/graphs' method='GET'>
-                    <input type="hidden" name="getgraph" value="heartrate_speed_run" />
-                    <button type='submit'> Ratio Hearttate to speed in Run</button>
-                </form>
-                <form action='/graphs' method='GET'>
-                    <input type="hidden" name="getgraph" value="progress" />
-                    <button type='submit' style='background-color:red'> Progress Run</button>
-                </form>
-                <form action='/graphs' method='GET'>
-                    <input type="hidden" name="getgraph" value="heartrate_years" />
-                    <button type='submit'> Heartrate over Years</button>
-                </form>
+                <button type='submit' onclick="fetchData('total_distance_run')"> Total Distance</button>
+
+                <button type='submit' onclick="fetchData('run_afstand_per_month')"> Kms per month</button>
+                 
+                <button type='submit' onclick="fetchData('run_afstand_per_week')"> Kms per week</button>
+
+                <button type='submit' onclick="fetchData('heartrate_speed_run')"> Ratio Hearttate to speed</button>
+
+                <button type='submit' onclick="fetchData('progress')" style='background-color:red'> Progress to Yeargoal</button>
+
+                <button type='submit' onclick="fetchData('heartrate_years')"> Heartrate over Years</button>
             </th>
             <th>
                 <h2> Bike </h2>
-                <form action='/graphs' method='GET'>
-                    <input type="hidden" name="getgraph" value="total_distance_bike" />
-                    <button type='submit'> Total Distance Bike</button>
-                </form>
-                <form action='/graphs' method='GET'>
-                    <input type="hidden" name="getgraph" value="bike_afstand_per_week" />
-                    <button type='submit'> Km's per week</button>
-                </form>
-                <form action='/graphs' method='GET'>
-                    <input type="hidden" name="getgraph" value="bike_afstand_per_month" />
-                    <button type='submit'> Km's per month</button>
-                </form>
+                <button type='submit' onclick="fetchData('total_distance_bike')"> Total Distance</button>
+
+                <button type='submit' onclick="fetchData('bike_afstand_per_week')"> Kms per week</button>
+
+                <button type='submit' onclick="fetchData('bike_afstand_per_month')"> Kms per month</button>
+               
                 <h2> Swim </h2>
-                <form action='/graphs' method='GET'>
-                    <input type="hidden" name="getgraph" value="heartrate_swim" />
-                    <button type='submit'> Heartrate over years</button>
-                </form>
+                <button type='submit' onclick="fetchData('total_distance_swim')"> Total Distance</button>
+
+                <button type='submit' onclick="fetchData('heartrate_swim')"> Heartrate over Years</button>
             </th>
             <th>
                 <h2> Total </h2>
-                <form action='/graphs' method='GET'>
-                    <input type="hidden" name="getgraph" value="effort" />
-                    <button type='submit'> Effort</button>
-                </form>
-                <form action='/graphs' method='GET'>
-                    <input type="hidden" name="getgraph" value="time_week" />
-                    <button type='submit'> Time per week </button>
-                </form>
-                <form action='/graphs' method='GET'>
-                    <input type="hidden" name="getgraph" value="time_month" />
-                    <button type='submit'> Time per month </button>
-                </form>
-                <!-- <form action='/graphs' method='GET'>
-                    <input type="hidden" name="getgraph" value="machine_learning" />
-                    <button type='submit'> machine learning </button> -->
-                </form>
-                <form action='/graphs' method='GET'>
-                    <input type="hidden" name="getgraph" value="stacked_time" />
-                    <button type='submit'> Stacked Time </button>
-                </form>
-                <form action='/graphs' method='GET'>
-                    <input type="hidden" name="getgraph" value="piechart_time" />
-                    <button type='submit'> PieChart Time </button>
-                </form>
-                <form action='/graphs' method='GET'>
-                    <input type="hidden" name="getgraph" value="races" />
-                    <button type='submit'> Races </button>
-                </form>
+                <button type='submit' onclick="fetchData('effort')"> Effort</button>
+                
+                <button type='submit' onclick="fetchData('time_week')"> Time per week</button>
+
+                <button type='submit' onclick="fetchData('time_month')"> Time per month</button>
+
+                <button type='submit' onclick="fetchData('stacked_time')"> Time Stacked</button>
+
+                <button type='submit' onclick="fetchData('piechart_time')"> Time Piechart</button>
+
+                <button type='submit' onclick="fetchData('races')"> Races</button>
             </th>
         </tr>
     </table>    
 </div>
 <div id='right-side'>
     <label  for="fname">Start Date</label> 
-    <input id='year1' name="year1" type="date" > </input>
+    <input id='beginDate' type="date" value={{beginDate}} onchange="dateChange()"> </input>
     <label  for="fname">End Date</label> 
-    <input name="year2" type="date"/>
+    <input id="endDate" type="date" value={{endDate}} onchange="dateChange()"> </input>
     <br/><br/>
     <img src={{graph}}>
 </div>

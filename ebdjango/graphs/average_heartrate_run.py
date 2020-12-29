@@ -9,7 +9,7 @@ import re
 import base64
 from io import BytesIO
 
-def average_heartrate_run(all_activities):
+def average_heartrate_run(all_activities, begin_date, end_date):
 
     first = True
     heart_rates = []
@@ -21,7 +21,7 @@ def average_heartrate_run(all_activities):
         if first:
             first = False
             first_day = datetime.strptime(my_dataset[0]['start_date'][2:10], '%y-%m-%d')
-        if all_activities['activity_type']=='Run':
+        if all_activities['activity_type']=='Run' and activity.date > begin_date and activity.date < end_date:
             heart_rates.append(all_activities['heartrate'])
             speeds.append(run['speed'])
             ratio.append(run['speed'] / run['hearrate'])

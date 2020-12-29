@@ -37,6 +37,9 @@
                 background-color: yellow;
                 cursor: pointer;
             }
+            table td, table td * {
+                vertical-align: top;
+            }
             #graph-table{
                 /* float:left; */
             }
@@ -77,5 +80,35 @@
             
             {% endblock %}
         </div>
+    <script>
+        function fetchData(graph){
+            beginDate = document.getElementById("beginDate").value;
+            endDate = document.getElementById("endDate").value;
+            url = "/graphs?getgraph=" + graph
+            if (beginDate != ""){
+                url += "&beginDate=" + beginDate;
+            }
+            if (endDate != ""){
+                url += "&endDate=" + endDate;
+            }
+            window.location.href =  url;
+        }
+
+        function dateChange(){
+            startIndex = window.location.href.indexOf("getgraph=") + 9
+            endIndex = window.location.href.indexOf('&',startIndex)
+            graph = window.location.href.slice(startIndex,endIndex)
+            beginDate = document.getElementById("beginDate").value;
+            endDate = document.getElementById("endDate").value;
+            url = "/graphs?getgraph=" + graph
+            if (beginDate != ""){
+                url += "&beginDate=" + beginDate;
+            }
+            if (endDate != ""){
+                url += "&endDate=" + endDate;
+            }
+            window.location.href =  url;
+        }
+    </script>
     </body>
 </html>

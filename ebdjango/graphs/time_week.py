@@ -10,11 +10,12 @@ import time
 import base64
 from io import BytesIO
 
-def time_week(activities):
+def time_week(activities, begin_date, end_date):
     week_afstand = {}
     date_afstand = {}
     for activity in activities:
-        date_afstand[activity.date] = activity.moving_time/3600
+        if activity.date > begin_date and activity.date < end_date:
+            date_afstand[activity.date] = activity.moving_time/3600
 
     minimum_year = list(date_afstand.keys())[-1].isocalendar()[0]
     max_week = 0

@@ -9,7 +9,7 @@ import re
 import base64
 from io import BytesIO
 
-def heartrate_years(activities):
+def heartrate_years(activities, begin_date, end_date):
     heart_rates = []
     speeds = []
     ratio = []
@@ -21,7 +21,7 @@ def heartrate_years(activities):
         if first:
             first = False
             first_day = activity.date
-        if activity.activity_type=='Run':
+        if activity.activity_type=='Run' and activity.date > begin_date and activity.date < end_date:
             heart_rates.append(activity.heartrate)
             speeds.append(activity.speed)
             ratio.append(activity.speed / activity.heartrate)

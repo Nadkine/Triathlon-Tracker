@@ -9,11 +9,11 @@ import re
 import base64
 from io import BytesIO
 
-def run_afstand_per_week(activities):
+def run_afstand_per_week(activities, begin_date, end_date):
     week_afstand = {}
     date_afstand = {}
     for activity in activities:
-        if activity.activity_type=='Run':
+        if activity.activity_type=='Run' and activity.date > begin_date and activity.date < end_date:
             date_afstand[activity.date] = activity.distance
 
     minimum_year = list(date_afstand.keys())[-1].isocalendar()[0]
