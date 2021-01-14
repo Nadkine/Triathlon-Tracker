@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>The Triathlon Tracker</title>
+        <meta charset="UTF-8">
+        <script async src=https://CDN.JSDelivr.net/processing.js/latest/mainfile></script>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+                <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+                    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+                            <style>
+        body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
+        .w3-row-padding img {margin-bottom: 12px}
+        /* Set the width of the sidebar to 120px */
+        .w3-sidebar {width: 120px;background: #222;}
+        /* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
+        #main {margin-left: 100px}
+        /* Remove margins from "page content" on small screens */
+        @media only screen and (max-width: 800px) {
+                #main {
+                    margin-left: 0;
+                    height: auto;
+                }
+            }
+            button {
+                background-color: orange;
+                color: black;
+                border-radius: 20px;
+                border: 2px black;
+                padding: 8px;
+                text-align: center;
+                font-size: 14px;
+                margin: 5px;
+            }
+
+            button:hover{
+                background-color: yellow;
+                cursor: pointer;
+            }
+            table td, table td * {
+                vertical-align: top;
+            }
+            #graph-table{
+                /* float:left; */
+            }
+            #right-side{
+                /* float:left;  */
+              
+            }
+            #main {
+                display: grid;
+                grid-template-columns: 45% 55% ;
+            }
+        </style>
+    </head>
+    <body class="w3-black">
+        <div class="w3-topbar w3-container w3-padding-24 ">
+            <div class="w3-xxlarge w3-bar w3-black">
+                <div class="w3-left">The Triathlon Tracker: Welcome {{request.user}}
+                    <!-- <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu">
+                        <i class="fa fa-bars"></i>
+                    </a> -->
+                </div>
+            </div>
+        </div>
+    <!-- Icon Bar (Sidebar - hidden on small screens) -->
+        <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
+            <a href="{%url 'graphs'%}" class="w3-bar-item w3-button w3-padding-large w3-black">
+                <i class="fa fa-chart-area w3-xxlarge"></i>
+                <p>GRAPHS</p>
+                
+            </a>
+            <!-- <a href="{%url 'predictor'%}" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+                <i class="fa fa-table w3-xxlarge"></i>
+                <p>STATS</p>
+            </a> -->
+        </nav>
+        <div class="w3-padding-large w3-content content" id="main">
+            {% block content %}
+            
+            {% endblock %}
+        </div>
+    <script>
+        function fetchData(graph){
+            beginDate = document.getElementById("beginDate").value;
+            endDate = document.getElementById("endDate").value;
+            url = "/graphs?getgraph=" + graph
+            if (beginDate != ""){
+                url += "&beginDate=" + beginDate;
+            }
+            if (endDate != ""){
+                url += "&endDate=" + endDate;
+            }
+            window.location.href =  url;
+        }
+
+        function dateChange(){
+            console.log("HIER1")
+            var url = new URL(window.location.href);
+            var graph = url.searchParams.get("getgraph");
+            console.log("HIER2")
+            beginDate = document.getElementById("beginDate").value;
+            endDate = document.getElementById("endDate").value;
+            new_url = "/graphs?getgraph=" + graph
+            if (beginDate != ""){
+                new_url += "&beginDate=" + beginDate;
+            }
+            if (endDate != ""){
+                new_url += "&endDate=" + endDate;
+            }
+            window.location.href =  new_url;
+        }
+    </script>
+    </body>
+</html>

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="w3-padding-large w3-content" style="max-width: 2000px;">
+        <!-- Header/Home -->
+    <div>
+            Your data is getting fetched. This may take a minute, depending on your amount of data <br>
+            (Wait at least 30 seconds to avoid unexpected results) <br><br>
+
+            <form action='/start' method='GET'>
+                <input type="hidden" name="waiting" value="waiting" />
+                <button type='submit'> Check if Data is fetched</button>
+            </form>
+    </div>
+    
+</div>
+{% endblock %}
