@@ -37,7 +37,7 @@ def start_view(request, **kwargs):
     #Activity.objects.all().delete()
     if len(Activity.objects.filter(user=request.user)) == 0 and request.GET.get('code','') == '':
         #return redirect("https://www.strava.com/oauth/authorize?client_id=50341&redirect_uri=http://localhost:8000/start&response_type=code&scope=activity:read_all", code=302)
-        return redirect("https://www.strava.com/oauth/authorize?client_id=50341&redirect_uri=http://strava.tjeerdsantema.nl/start&response_type=code&scope=activity:read_all", code=302)
+        return redirect("https://www.strava.com/oauth/authorize?client_id=50341&redirect_uri=http://triathlon-tracker.nl/start&response_type=code&scope=activity:read_all", code=302)
     elif len(Activity.objects.filter(user=request.user)) == 0:
         code = request.GET.get('code','')
         pool = ThreadPool(processes=1)
