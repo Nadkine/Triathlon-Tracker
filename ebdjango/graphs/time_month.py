@@ -16,29 +16,31 @@ def time_month(activities, begin_date, end_date):
     for activity in activities:
         if activity.date > begin_date and activity.date < end_date:
             date_afstand[activity.date] = activity.moving_time/3600
+    if date_afstand:
+        minimum_year = list(date_afstand.keys())[-1].isocalendar()[0]
+        max_month = 0
+        for date,afstand in date_afstand.items():
+            month = (date.isocalendar()[0]-minimum_year)*12 + date.month
+            if max_month == 0:
+                max_month = month
+            the_month = max_month - month
+            if the_month not in month_afstand:
+                month_afstand[the_month] = afstand
+            else:
+                month_afstand[the_month] = month_afstand.get(the_month) + afstand
 
-    minimum_year = list(date_afstand.keys())[-1].isocalendar()[0]
-    max_month = 0
-    for date,afstand in date_afstand.items():
-        month = (date.isocalendar()[0]-minimum_year)*12 + date.month
-        if max_month == 0:
-            max_month = month
-        the_month = max_month - month
-        if the_month not in month_afstand:
-            month_afstand[the_month] = afstand
-        else:
-            month_afstand[the_month] = month_afstand.get(the_month) + afstand
-
-    objects = list(month_afstand)
-    months = list(month_afstand.keys())
-    performance = list(month_afstand.values())
-    min_month = list(month_afstand.keys())[-1]
-    fig = plt.figure()
-    plt.bar(months, performance, align='center', alpha=0.8,color = 'black')
-    plt.xticks(np.arange(0, min_month, step=round(min_month/10)))
-    plt.ylabel("Hours")
-    plt.xlabel("Months Ago")
-    tmpfile = BytesIO()
-    fig.savefig(tmpfile, format='png')
-    encoded = base64.b64encode(tmpfile.getvalue()).decode('utf-8')
-    return 'data:image/png;base64,{}'.format(encoded)
+        objects = list(month_afstand)
+        months = list(month_afstand.keys())
+        performance = list(month_afstand.values())
+        min_month = list(month_afstand.keys())[-1]
+        fig = plt.figure()
+        plt.bar(months, performance, align='center', alpha=0.8,color = 'black')
+        plt.xticks(np.arange(0, min_month, step=6))
+        plt.ylabel("Hours")
+        plt.xlabel("Months Ago")
+        tmpfile = BytesIO()
+        fig.savefig(tmpfile, format='png')
+        encoded = base64.b64encode(tmpfile.getvalue()).decode('utf-8')
+        return 'data:image/png;base64,{}'.format(encoded)
+    else:
+        return ''

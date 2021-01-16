@@ -28,24 +28,27 @@ def average_heartrate_run(all_activities, begin_date, end_date):
             days = date - first_day
             dates.append(int(re.search(r'\d+', str(days))[0]))
 
-    # Data
-    # df=pd.DataFrame({'x': range(len(heart_rates)), 'y1': heart_rates})
-    # x =  range(len(heart_rates))
-    latest_date = dates[-1]
-    var = heart_rates
-    m,b = np.polyfit(dates, var, 1)
+    if heart_rates:
+        # Data
+        # df=pd.DataFrame({'x': range(len(heart_rates)), 'y1': heart_rates})
+        # x =  range(len(heart_rates))
+        latest_date = dates[-1]
+        var = heart_rates
+        m,b = np.polyfit(dates, var, 1)
 
-    # print(ratio)
-    coef = np.polyfit(dates,var,1)
-    poly1d_fn = np.poly1d(coef) 
-    # multiple line plot
+        # print(ratio)
+        coef = np.polyfit(dates,var,1)
+        poly1d_fn = np.poly1d(coef) 
+        # multiple line plot
 
-    fig = plt.figure()
+        fig = plt.figure()
 
-    plt.plot(dates, var,'ro', markerfacecolor='red', markersize=.1, color='blue')
-    plt.plot(dates, var, 'yo', dates, poly1d_fn(dates), '--k')
-    
-    tmpfile = BytesIO()
-    fig.savefig(tmpfile, format='png')
-    encoded = base64.b64encode(tmpfile.getvalue()).decode('utf-8')
-    return 'data:image/png;base64,{}'.format(encoded)
+        plt.plot(dates, var,'ro', markerfacecolor='red', markersize=.1, color='blue')
+        plt.plot(dates, var, 'yo', dates, poly1d_fn(dates), '--k')
+        
+        tmpfile = BytesIO()
+        fig.savefig(tmpfile, format='png')
+        encoded = base64.b64encode(tmpfile.getvalue()).decode('utf-8')
+        return 'data:image/png;base64,{}'.format(encoded)
+    else:
+        return ''

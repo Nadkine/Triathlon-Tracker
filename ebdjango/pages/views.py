@@ -12,8 +12,8 @@ from datetime import datetime
 import re
 import base64
 from io import BytesIO
-#import graphs
 import graphs
+import dateutil.parser
 from graphs import total_distance_bike, effort, progress, heartrate_speed_run,total_distance_run, \
                     time_week, time_month, time,run_afstand_per_week, run_afstand_per_month, heartrate_years, heartrate_swim, average_heartrate_run, \
                     bike_afstand_per_week, bike_afstand_per_month, progress2, machine_learning, stacked_time, piechart_time, \
@@ -34,10 +34,10 @@ context = {}
 activities = []
 def start_view(request, **kwargs):
     activities = []
-    Activity.objects.all().delete()
+    #Activity.objects.all().delete()
     if len(Activity.objects.filter(user=request.user)) == 0 and request.GET.get('code','') == '':
         #return redirect("https://www.strava.com/oauth/authorize?client_id=50341&redirect_uri=http://localhost:8000/start&response_type=code&scope=activity:read_all", code=302)
-        return redirect("https://www.strava.com/oauth/authorize?client_id=50341&redirect_uri=http://strava.tjeerdsantema.nl/start&response_type=code&scope=activity:read_all", code=302)
+        return redirect("https://www.strava.com/oauth/authorize?client_id=50341&redirect_uri=http://triathlon-tracker.com/start&response_type=code&scope=activity:read_all", code=302)
     elif len(Activity.objects.filter(user=request.user)) == 0:
         code = request.GET.get('code','')
         pool = ThreadPool(processes=1)
@@ -51,11 +51,11 @@ def start_view(request, **kwargs):
 def graph_view(request, **kwargs):
     end_date = request.GET.get('endDate','')
     the_graph = request.GET.get('getgraph','total_distance_run')
-    begin_date = datetime.fromisoformat(request.GET.get('beginDate','2010-01-01')).date()
+    begin_date = dateutil.parser.isoparse(request.GET.get('beginDate','2010-01-01')).date()
     if end_date != '':
-        end_date = datetime.fromisoformat(end_date).date()
+        end_date = dateutil.parser.isoparse(end_date).date()
     else:
-        end_date = datetime.fromisoformat(datetime.now().strftime("%Y-%m-%d")).date()
+        end_date = dateutil.parser.isoparse(datetime.now().strftime("%Y-%m-%d")).date()
 
     if len(activities) != Activity.objects.filter(user=request.user):
         activities.clear()
@@ -101,32 +101,36 @@ def fetchStrava(code,request):
     i = 1
     while True:
         param = {'per_page': 200, 'page': i}
-        runs = requests.get(activites_url, headers=header, params=param).json()
-        print("current batch -  " + str(len(runs)))
-        if len(runs)==0:
+        strava_activities = requests.get(activites_url, headers=header, params=param).json()
+        print("current batch -  " + str(len(strava_activities)))
+        if len(strava_activities)==0:
             break
         i += 1
-        for run in runs:
-            if run['has_heartrate']:
-                activity               = Activity()
-                activity.strava_id     = run["id"]
-                activity.user          = request.user
-                activity.title         = run["name"]
-                activity.activity_type = run["type"]
-                activity.date          = datetime.strptime(run['start_date'][2:10], '%y-%m-%d')
-                activity.timestamp     = datetime.timestamp(activity.date)
-                activity.heartrate     = run['average_heartrate']
-                activity.distance      = run['distance']/1000  
-                activity.moving_time   = run['elapsed_time']
-                activity.elevation     = run['total_elevation_gain']
-                activity.speed         = run['average_speed']
-                activity.suffer        = run['suffer_score']
-                if activity.activity_type == "Run" or activity.activity_type == "Ride" :
-                    if run['workout_type'] == None:
-                        activity.workout_type  = 'niks'
-                    else:
-                        activity.workout_type  = run['workout_type']
-                activity.save()
+        for strava_activity in strava_activities:
+            print(strava_activity["name"])
+            activity               = Activity()
+            activity.strava_id     = strava_activity["id"]
+            activity.user          = request.user
+            activity.title         = strava_activity["name"]
+            activity.activity_type = strava_activity["type"]
+            activity.date          = datetime.strptime(strava_activity['start_date'][2:10], '%y-%m-%d')
+            activity.timestamp     = datetime.timestamp(activity.date)
+            if strava_activity['has_heartrate']:
+              activity.heartrate     = strava_activity['average_heartrate']
+              activity.suffer        = strava_activity['suffer_score']
+            else:
+              activity.heartrate     = 0
+              activity.suffer        = 0
+            activity.distance      = strava_activity['distance']/1000  
+            activity.moving_time   = strava_activity['elapsed_time']
+            activity.elevation     = strava_activity['total_elevation_gain']
+            activity.speed         = strava_activity['average_speed']
+            if activity.activity_type == "Run" or activity.activity_type == "Ride" :
+                if strava_activity['workout_type'] == None:
+                    activity.workout_type  = 'niks'
+                else:
+                    activity.workout_type  = strava_activity['workout_type']
+            activity.save()
     
         
 
@@ -136,7 +140,7 @@ def fetchStrava(code,request):
     # #Activity.objects.all().delete()
     # if len(Activity.objects.filter(user=request.user)) == 0 and request.GET.get('code','') == '':
     #     return redirect("https://www.strava.com/oauth/authorize?client_id=50341&redirect_uri=http://localhost:8000/graphs_home&response_type=code&scope=activity:read_all", code=302)
-    #      #return redirect("https://www.strava.com/oauth/authorize?client_id=50341&redirect_uri=http://strava.tjeerdsantema.nl/graphs_home&response_type=code&scope=activity:read_all", code=302)
+    #      #return redirect("https://www.strava.com/oauth/authorize?client_id=50341&redirect_uri=http://strava.tjeerdsantema.c/graphs_home&response_type=code&scope=activity:read_all", code=302)
     # elif len(Activity.objects.filter(user=request.user)) == 0:
     #     code = request.GET.get('code','')
     #     t = threading.Thread(target=fetchStrava, args=[code,request])

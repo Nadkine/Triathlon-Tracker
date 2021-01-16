@@ -18,7 +18,6 @@ def piechart_time(activities, begin_date, end_date):
     total_time_swim = 0           
     total_time_ride = 0           
     total_time_run = 0  
-    print(len(activities))
     for activity in activities:
         if activity.date > begin_date and activity.date < end_date:
             if activity.activity_type=='Swim':
@@ -27,7 +26,7 @@ def piechart_time(activities, begin_date, end_date):
                 total_time_ride += activity.moving_time / 60 / 60
             if activity.activity_type=='Run':
                 total_time_run += activity.moving_time / 60 / 60
-         
+    
     labels = ['Swim', 'Ride', 'Run']
     sizes = [total_time_swim, total_time_ride, total_time_run]
 

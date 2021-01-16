@@ -14,18 +14,18 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+SECRET_KEY = ""
+with open('PrivateSettings.txt','r') as f:
+    for line in f.read().splitlines(): 
+        SECRET_KEY = line
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'pom3%aov)%jo$fu#xq1q6*rjb$w=0r7#hjrh4!7r$3_&2xhgqv'
-
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['localhost.com','localhost', 'strava.tjeerdsantema.nl', '18.193.158.161','172.31.31.18','127.0.0.1', 'triathlontracker-env.eba-t8rscvku.us-west-2.elasticbeanstalk.com','52.40.71.97']
+ALLOWED_HOSTS = ['localhost.com','localhost', '44.237.60.194','strava.tjeerdsantema.nl', '18.193.158.161','172.31.31.18','127.0.0.1', 'triathlontracker-env.eba-t8rscvku.us-west-2.elasticbeanstalk.com','52.40.71.97', 'triathlon-tracker.com']
 
 
 # Application definition

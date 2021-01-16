@@ -70,10 +70,10 @@
                 <p>GRAPHS</p>
                 
             </a>
-            <a href="{%url 'predictor'%}" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+            <!-- <a href="{%url 'predictor'%}" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
                 <i class="fa fa-table w3-xxlarge"></i>
                 <p>STATS</p>
-            </a>
+            </a> -->
         </nav>
         <div class="w3-padding-large w3-content content" id="main">
             {% block content %}
@@ -95,19 +95,20 @@
         }
 
         function dateChange(){
-            startIndex = window.location.href.indexOf("getgraph=") + 9
-            endIndex = window.location.href.indexOf('&',startIndex)
-            graph = window.location.href.slice(startIndex,endIndex)
+            console.log("HIER1")
+            var url = new URL(window.location.href);
+            var graph = url.searchParams.get("getgraph");
+            console.log("HIER2")
             beginDate = document.getElementById("beginDate").value;
             endDate = document.getElementById("endDate").value;
-            url = "/graphs?getgraph=" + graph
+            new_url = "/graphs?getgraph=" + graph
             if (beginDate != ""){
-                url += "&beginDate=" + beginDate;
+                new_url += "&beginDate=" + beginDate;
             }
             if (endDate != ""){
-                url += "&endDate=" + endDate;
+                new_url += "&endDate=" + endDate;
             }
-            window.location.href =  url;
+            window.location.href =  new_url;
         }
     </script>
     </body>
