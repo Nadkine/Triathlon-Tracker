@@ -20,7 +20,7 @@ def heartrate_swim(activities, begin_date, end_date):
             first = False
             first_day = activity.date
             
-        if  activity.activity_type=='Swim' and activity.date > begin_date and activity.date < end_date:
+        if  activity.activity_type=='Swim' and activity.heartrate != 0 and activity.date >= begin_date and activity.date <= end_date:
             heart_rates.append(activity.heartrate)
             speeds.append(activity.speed)
             days = activity.date - first_day

@@ -21,7 +21,7 @@ def progress(activities, begin_date, end_date):
         dag_verschil[n] = 0
 
     for activity in activities:
-        if activity.activity_type=='Run' and activity.date > begin_date and activity.date < end_date:
+        if activity.activity_type=='Run' and activity.date >= begin_date and activity.date <= end_date:
             year = activity.date.year
             if year == jaar:   
                 dag = activity.date.timetuple()[7]

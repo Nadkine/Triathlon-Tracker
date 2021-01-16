@@ -16,7 +16,7 @@ def races(activities, begin_date, end_date):
     dates = []
     distances = []
     for activity in activities:
-        if activity.workout_type == '1' and activity.date > begin_date and activity.date < end_date:
+        if activity.workout_type == '1' and activity.date >= begin_date and activity.date <= end_date:
             race_dates[activity.date] = activity.workout_type
             dates.append(activity.date)
             distances.append('{}\n{}'.format(activity.title,round(activity.distance,1)))

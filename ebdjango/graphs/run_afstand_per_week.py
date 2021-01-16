@@ -4,7 +4,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from datetime import datetime
+from datetime import datetime,  timedelta
 import re
 import base64
 from io import BytesIO
@@ -13,20 +13,18 @@ def run_afstand_per_week(activities, begin_date, end_date):
     week_afstand = {}
     date_afstand = {}
     for activity in activities:
-        if activity.activity_type=='Run' and activity.date > begin_date and activity.date < end_date:
+        if activity.activity_type=='Run' and activity.date >= begin_date and activity.date <= end_date:
             date_afstand[activity.date] = activity.distance
     if date_afstand:
         minimum_year = list(date_afstand.keys())[-1].isocalendar()[0]
-        max_week = 0
+        end_date_day = (end_date - timedelta(days=end_date.weekday()))
         for date,afstand in date_afstand.items():
-            week = (date.isocalendar()[0]-minimum_year)*52 + date.isocalendar()[1]
-            if max_week == 0:
-                max_week = week
-            the_week = max_week - week
-            if the_week not in week_afstand:
-                week_afstand[the_week] = afstand
+            this_day = (date - timedelta(days=date.weekday()))
+            weeks_ago = (end_date_day - this_day).days / 7
+            if weeks_ago not in week_afstand:
+                week_afstand[weeks_ago] = afstand
             else:
-                week_afstand[the_week] = week_afstand.get(the_week) + afstand
+                week_afstand[weeks_ago] = week_afstand.get(weeks_ago) + afstand
 
         objects = list(week_afstand)
         weeks = list(week_afstand.keys())

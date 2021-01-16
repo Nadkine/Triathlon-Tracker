@@ -15,7 +15,7 @@ def stacked_time(activities, begin_date, end_date):
     day_ride_time = {}
     day_run_time = {}
     for activity in activities:
-        if activity.date > begin_date and activity.date < end_date:
+        if activity.date >= begin_date and activity.date <= end_date:
             if activity.activity_type=='Swim':
                 day_swim_time[activity.date] = activity.moving_time / 60 / 60
             if activity.activity_type=='Ride':

@@ -23,7 +23,7 @@ with open('PrivateSettings.txt','r') as f:
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost.com','localhost', '44.237.60.194','strava.tjeerdsantema.nl', '18.193.158.161','172.31.31.18','127.0.0.1', 'triathlontracker-env.eba-t8rscvku.us-west-2.elasticbeanstalk.com','52.40.71.97', 'triathlon-tracker.com']
 

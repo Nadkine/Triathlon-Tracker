@@ -16,3 +16,7 @@ class Activity (models.Model):
     speed          = models.FloatField()
     suffer         = models.IntegerField()
 
+    def __str__(self):
+        return str(self.title) + ": " + str(self.date) + "\t-\t" + str(self.distance)  
+
+

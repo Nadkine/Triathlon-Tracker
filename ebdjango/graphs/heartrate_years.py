@@ -21,7 +21,7 @@ def heartrate_years(activities, begin_date, end_date):
         if first:
             first = False
             first_day = activity.date
-        if activity.activity_type=='Run' and activity.date > begin_date and activity.date < end_date:
+        if activity.activity_type=='Run' and activity.heartrate != 0 and activity.date >= begin_date and activity.date <= end_date:
             heart_rates.append(activity.heartrate)
             speeds.append(activity.speed)
             ratio.append(activity.speed / activity.heartrate)

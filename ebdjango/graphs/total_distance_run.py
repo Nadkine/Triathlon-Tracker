@@ -14,7 +14,7 @@ import matplotlib.dates as mdates
 def total_distance_run(activities, begin_date, end_date):
     dag_afstand = {}
     for activity in activities:
-        if activity.activity_type=='Run' and activity.date > begin_date and activity.date < end_date:
+        if activity.activity_type=='Run' and activity.date >= begin_date and activity.date <= end_date:
             dag_afstand[activity.date] = activity.distance  
     if dag_afstand:
         totaal_afstand = 0           

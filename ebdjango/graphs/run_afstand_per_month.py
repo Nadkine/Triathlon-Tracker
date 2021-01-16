@@ -13,7 +13,7 @@ def run_afstand_per_month(activities, begin_date, end_date):
     month_afstand = {}
     date_afstand = {}
     for activity in activities:
-        if activity.activity_type=='Run' and activity.date > begin_date and activity.date < end_date:
+        if activity.activity_type=='Run' and activity.date >= begin_date and activity.date <= end_date:
             date_afstand[activity.date] = activity.distance
     if date_afstand:
         minimum_year = list(date_afstand.keys())[-1].isocalendar()[0]

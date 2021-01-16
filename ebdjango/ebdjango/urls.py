@@ -22,6 +22,7 @@ from users import views as users_views
 urlpatterns = [
     path('', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('graphs', pages_views.graph_view, name='graphs'),
+    path('fetch_data', pages_views.fetch_data_view, name='fetch_data'),
     path('predictor', pages_views.predictor_view, name='predictor'),
     path('start', pages_views.start_view),
     path('admin/', admin.site.urls),
