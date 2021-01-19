@@ -17,16 +17,12 @@ def run_afstand_per_month(activities, begin_date, end_date):
             date_afstand[activity.date] = activity.distance
     if date_afstand:
         minimum_year = list(date_afstand.keys())[-1].isocalendar()[0]
-        max_month = 0
         for date,afstand in date_afstand.items():
-            month = (date.isocalendar()[0]-minimum_year)*12 + date.month
-            if max_month == 0:
-                max_month = month
-            the_month = max_month - month
-            if the_month not in month_afstand:
-                month_afstand[the_month] = afstand
+            months = (end_date.year - date.year) * 12 + (end_date.month - date.month)
+            if months not in month_afstand:
+                month_afstand[months] = afstand
             else:
-                month_afstand[the_month] = month_afstand.get(the_month) + afstand
+                month_afstand[months] = month_afstand.get(months) + afstand
 
         objects = list(month_afstand)
         months = list(month_afstand.keys())
@@ -34,7 +30,9 @@ def run_afstand_per_month(activities, begin_date, end_date):
         min_month = list(month_afstand.keys())[-1]
         fig = plt.figure()
         plt.bar(months, performance, align='center', alpha=0.8,color = 'black')
-        plt.xticks(np.arange(0, min_month, step=6))
+        total_months = (end_date.year - begin_date.year) * 12 + (end_date.month - begin_date.month) + 1
+        steps = 1 if int(total_months/6) == 0 else int(total_months/6)
+        plt.xticks(np.arange(0, total_months, step=steps))
         plt.ylabel("Km's")
         plt.xlabel("Months Ago")
         tmpfile = BytesIO()

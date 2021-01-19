@@ -21,7 +21,7 @@
                     margin-left: 0;
                     height: auto;
                 }
-            }
+            };
             button {
                 background-color: orange;
                 color: black;
@@ -37,17 +37,9 @@
                 background-color: yellow;
                 cursor: pointer;
             }
-            table td, table td * {
-                vertical-align: top;
-            }
-            #graph-table{
-                /* float:left; */
-            }
-            #right-side{
-                /* float:left;  */
-              
-            }
+           
             #main {
+                vertical-align: top;
                 display: grid;
                 grid-template-columns: 45% 55% ;
             }
@@ -56,7 +48,9 @@
     <body class="w3-black">
         <div class="w3-topbar w3-container w3-padding-24 ">
             <div class="w3-xxlarge w3-bar w3-black">
-                <div class="w3-left">The Triathlon Tracker: Welcome {{request.user}}
+                <div style='color:orange'class="w3-left">
+                    <b>The Triathlon Tracker </b> <br>
+                    Welcome {{request.user}}
                     <!-- <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu">
                         <i class="fa fa-bars"></i>
                     </a> -->

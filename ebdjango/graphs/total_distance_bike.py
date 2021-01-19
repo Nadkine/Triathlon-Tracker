@@ -4,7 +4,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, timedelta
 import re
 import base64
 from io import BytesIO
@@ -20,9 +20,13 @@ def total_distance_bike(activities, begin_date, end_date):
         totaal_afstand = 0           
         dag_totaal = {}
         dag_afstand =OrderedDict(sorted(dag_afstand.items()))
-        for k,v in dag_afstand.items():
+        for i,(k,v) in enumerate(dag_afstand.items()):
+            if i == 0:
+                dag_totaal[k - timedelta(days=1)] = 0
             totaal_afstand = totaal_afstand + v 
             dag_totaal[k] = totaal_afstand
+            if i == len(dag_afstand)-1: 
+                dag_totaal[k + timedelta(days=1)] = totaal_afstand
 
         fig, ax = plt.subplots()
         plt.fill_between(list(dag_totaal)[:-1],list(dag_totaal.values())[:-1], color = '#222222')

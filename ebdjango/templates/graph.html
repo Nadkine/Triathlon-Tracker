@@ -3,8 +3,8 @@
 {% block content %}
       <!-- Header/Home -->
 <div id='graph-table'>
-    <table>
-        <tr>
+    <table >
+        <tr style='vertical-align: top;'>
             <th>
                 <h2> Running </h2>
                 <button type='submit' onclick="fetchData('total_distance_run')"> Total Distance</button>
@@ -15,7 +15,7 @@
 
                 <button type='submit' onclick="fetchData('heartrate_speed_run')"> Ratio Hearttate to speed</button>
 
-                <button type='submit' onclick="fetchData('progress')" style='background-color:red'> Progress to Yeargoal</button>
+                <!-- <button type='submit' onclick="fetchData('progress')" style='background-color:red'> Progress to Yeargoal</button> -->
 
                 <button type='submit' onclick="fetchData('heartrate_years')"> Heartrate over Years</button>
             </th>
