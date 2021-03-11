@@ -51,6 +51,11 @@ def start_view(request, **kwargs):
 def graph_view(request, **kwargs):
     end_date = request.GET.get('endDate','')
     the_graph = request.GET.get('getgraph','total_distance_run')
+    print(the_graph)
+    if the_graph == 'null':
+        the_graph = 'total_distance_run'
+    print('the_graph')
+    print(the_graph) 
     begin_date = dateutil.parser.isoparse(request.GET.get('beginDate','2010-01-01')).date()
     if end_date != '':
         end_date = dateutil.parser.isoparse(end_date).date()
@@ -123,9 +128,13 @@ def fetchStrava(code,request):
                 activity.activity_type = strava_activity["type"]
                 activity.date          = datetime.strptime(strava_activity['start_date'][2:10], '%y-%m-%d')
                 activity.timestamp     = datetime.timestamp(activity.date)
+                print(strava_activity)
                 if strava_activity['has_heartrate']:
                     activity.heartrate     = strava_activity['average_heartrate']
-                    activity.suffer        = strava_activity['suffer_score']
+                    if 'suffer_score' in strava_activity:
+                        activity.suffer        = strava_activity['suffer_score']
+                    else:
+                        activity.suffer        = 0
                 else:
                     activity.heartrate     = 0
                     activity.suffer        = 0

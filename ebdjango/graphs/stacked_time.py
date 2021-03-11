@@ -41,7 +41,16 @@ def stacked_time(activities, begin_date, end_date):
             day_run_time[k] = total_time_run
 
         all_days = []
-        first_day = min(list(day_swim_time.keys())[0],(list(day_run_time.keys())[0]),(list(day_ride_time.keys())[0]))
+        min_swim_day = date.today()
+        min_run_day = date.today()
+        min_ride_day = date.today()
+        if len(list(day_swim_time.keys())) != 0:
+            min_swim_day = list(day_swim_time.keys())[0] 
+        if len(list(day_run_time.keys())) != 0:
+            min_run_day = list(day_run_time.keys())[0] 
+        if len(list(day_ride_time.keys())) != 0:
+            min_ride_day = list(day_ride_time.keys())[0] 
+        first_day = min(min_swim_day, min_run_day, min_ride_day)
         delta = date.today() - first_day   
         first = True
         for i in range(delta.days + 1):
