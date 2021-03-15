@@ -46,7 +46,7 @@ def heartrate_speed_run(activities, begin_date, end_date):
         # multiple line plot
         #plt.plot(dates, var,'ro', markerfacecolor='red', markersize=.1, color='blue')
         #plt.plot(dates, var, 'yo', dates, poly1d_fn(dates), '--k')
-        plt.plot(dates, var, 'o', dates, poly1d_fn(dates), markersize=2, color='black')
+        plt.plot(dates, var, 'o', dates, poly1d_fn(dates), markersize=2, color='#2CA02C')
         plt.ylabel("Speed / Heart_rate")
         plt.xlabel("Days Ago")
     

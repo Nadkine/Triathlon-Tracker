@@ -43,9 +43,9 @@ def heartrate_swim(activities, begin_date, end_date):
         fig = plt.figure()
 
         # multiple line plot
-        plt.plot(dates, var,'ro', markerfacecolor='red', markersize=.1, color='blue')
+        plt.plot(dates, var,'ro', markerfacecolor='red', markersize=.1, color='#1F77B4')
         # plt.legend()
-        plt.plot(dates, var, 'o', dates, poly1d_fn(dates), markersize=2, color='black')
+        plt.plot(dates, var, 'o', dates, poly1d_fn(dates), markersize=2, color='#1F77B4')
         plt.ylabel("Heart_rate")
         plt.xlabel("Days Ago")
 

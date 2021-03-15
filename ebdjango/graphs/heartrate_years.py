@@ -44,7 +44,7 @@ def heartrate_years(activities, begin_date, end_date):
 
         fig = plt.figure()
         
-        plt.plot(dates, var, 'o', dates, poly1d_fn(dates), markersize=2, color='black')
+        plt.plot(dates, var, 'o', dates, poly1d_fn(dates), markersize=2, color='#2CA02C')
         plt.ylabel("Heart_rate")
         plt.xlabel("Days Ago")
 

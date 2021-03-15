@@ -31,7 +31,7 @@ def bike_afstand_per_week(activities, begin_date, end_date):
         total_weeks = ((end_date - timedelta(days=end_date.weekday())) - (begin_date - timedelta(days=begin_date.weekday()))).days / 7
         steps = 1 if int(total_weeks/6) == 0 else int(total_weeks/6)
         fig = plt.figure()
-        plt.bar(weeks, performance, align='center', alpha=0.8,color = 'black')
+        plt.bar(weeks, performance, align='center', alpha=0.8,color = '#FF7F0E')
         plt.xticks(np.arange(0, total_weeks, step=steps))
         plt.ylabel("Km's")
         plt.xlabel("Weeks Ago")

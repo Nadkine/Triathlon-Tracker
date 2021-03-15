@@ -29,7 +29,7 @@ def total_distance_swim(activities, begin_date, end_date):
                 dag_totaal[k + timedelta(days=1)] = totaal_afstand
 
     fig, ax = plt.subplots()
-    plt.fill_between(list(dag_totaal)[:-1],list(dag_totaal.values())[:-1], color = '#222222')
+    plt.fill_between(list(dag_totaal)[:-1],list(dag_totaal.values())[:-1], color = '#1F77B4')
     plt.grid(color = 'black', linewidth = 0.2)
     ax.get_xaxis().set_major_locator(mdates.MonthLocator(interval=8))
     ax.get_xaxis().set_major_formatter(mdates.DateFormatter("%d %b %y"))

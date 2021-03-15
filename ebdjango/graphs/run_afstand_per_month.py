@@ -29,7 +29,7 @@ def run_afstand_per_month(activities, begin_date, end_date):
         performance = list(month_afstand.values())
         min_month = list(month_afstand.keys())[-1]
         fig = plt.figure()
-        plt.bar(months, performance, align='center', alpha=0.8,color = 'black')
+        plt.bar(months, performance, align='center', alpha=0.8,color = '#2CA02C')
         total_months = (end_date.year - begin_date.year) * 12 + (end_date.month - begin_date.month) + 1
         steps = 1 if int(total_months/6) == 0 else int(total_months/6)
         plt.xticks(np.arange(0, total_months, step=steps))

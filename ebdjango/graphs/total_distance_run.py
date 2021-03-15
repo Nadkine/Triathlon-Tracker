@@ -33,7 +33,7 @@ def total_distance_run(activities, begin_date, end_date):
 
         fig, ax = plt.subplots()
         ax.grid(True, alpha=0.3)
-        plt.fill_between(list(dag_totaal)[:-1],list(dag_totaal.values())[:-1], color = '#222222')
+        plt.fill_between(list(dag_totaal)[:-1],list(dag_totaal.values())[:-1], color = '#2CA02C')
         plt.grid(color = 'black', linewidth = 0.2)
         total_months = (end_date.year - begin_date.year) * 12 + (end_date.month - begin_date.month) + 1
         ax.get_xaxis().set_major_locator(mdates.MonthLocator(interval=8))

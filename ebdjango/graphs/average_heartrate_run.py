@@ -43,7 +43,7 @@ def average_heartrate_run(all_activities, begin_date, end_date):
 
         fig = plt.figure()
 
-        plt.plot(dates, var,'ro', markerfacecolor='red', markersize=.1, color='blue')
+        plt.plot(dates, var,'ro', markerfacecolor='red', markersize=.1, color='#2CA02C')
         plt.plot(dates, var, 'yo', dates, poly1d_fn(dates), '--k')
         
         tmpfile = BytesIO()

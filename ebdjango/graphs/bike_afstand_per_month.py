@@ -28,7 +28,7 @@ def bike_afstand_per_month(activities, begin_date, end_date):
         months = list(month_afstand.keys())
         performance = list(month_afstand.values())
         fig = plt.figure()
-        plt.bar(months, performance, align='center', alpha=0.8,color = 'black')
+        plt.bar(months, performance, align='center', alpha=0.8,color = '#FF7F0E')
         total_months = (end_date.year - begin_date.year) * 12 + (end_date.month - begin_date.month) + 1
         steps = 1 if int(total_months/6) == 0 else int(total_months/6)
         plt.xticks(np.arange(0, total_months, step=steps))
