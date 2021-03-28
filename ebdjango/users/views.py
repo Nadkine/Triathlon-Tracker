@@ -28,4 +28,4 @@ def register_view(request):
             return redirect('/login')
     else:
         form = UserRegisterForm()
-    return render(request, 'register.html', {'form': form})
+    return render(request, 'register.html', {'form': form,'menu_invisible':True})
