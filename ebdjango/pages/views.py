@@ -34,6 +34,8 @@ strava_api_link = "https://www.strava.com/oauth/authorize?client_id=50341&redire
 context = {}
 activities = []
 def start_view(request, **kwargs):
+    if request.user == '' or request.user == None:
+        request.user = 'Not Autorized'
     activities = []
     #Activity.objects.all().delete()
     code = request.GET.get('code','')
@@ -49,6 +51,8 @@ def start_view(request, **kwargs):
         return redirect("/graphs", code=302)   
     
 def graph_view(request, **kwargs):
+    if request.user == '' or request.user == None:
+        request.user = 'Not Autorized'
     end_date = request.GET.get('endDate','')
     the_graph = request.GET.get('getgraph','total_distance_run')
     print(the_graph)
@@ -76,6 +80,8 @@ def fetch_data_view(request, **kwargs):
     return redirect(strava_api_link, code=302)
 
 def predictor_view(request):
+    if request.user == '' or request.user == None:
+        request.user = 'Not Autorized'
     distance = request.GET.get('distance','')
     elevation = request.GET.get('elevation','')
     date = request.GET.get('date','')
@@ -102,6 +108,8 @@ def getAccessToken(code):
     return access_token
 
 def fetchStrava(code,request):
+    if request.user == '' or request.user == None:
+        request.user = 'Not Autorized'
     access_token = getAccessToken(code)
     activites_url = "https://www.strava.com/api/v3/athlete/activities"
     header = {'Authorization': 'Bearer ' + access_token}
