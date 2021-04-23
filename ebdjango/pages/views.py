@@ -53,13 +53,14 @@ def start_view(request, **kwargs):
 def graph_view(request, **kwargs):
     if request.user == '' or request.user == None:
         request.user = 'Not Autorized'
+    print(request.GET)
     end_date = request.GET.get('endDate','')
-    the_graph = request.GET.get('getgraph','total_distance_run')
-    print(the_graph)
+    the_graph = request.GET.get('getgraph','effort')
     if the_graph == 'null':
         the_graph = 'total_distance_run'
-    print('the_graph')
-    print(the_graph) 
+    sports = request.GET.getlist('sport', None)
+    datesort = request.GET.get('datesort', 'week')
+    data_type = request.GET.get('type', 'time')
     begin_date = dateutil.parser.isoparse(request.GET.get('beginDate','2010-01-01')).date()
     if end_date != '':
         end_date = dateutil.parser.isoparse(end_date).date()
@@ -70,10 +71,15 @@ def graph_view(request, **kwargs):
         activities.clear()
         for i in Activity.objects.filter(user=request.user):
             activities.append(i)
-
-    context['graph'] = getattr(getattr(graphs, the_graph),the_graph)(activities,begin_date,end_date)
+    if datesort == 'cumulatief':
+         context['graph'] = stacked_time.stacked_time(activities, sports, data_type, begin_date,end_date)
+    else:
+        context['graph'] = effort.effort(activities, sports, datesort, data_type, begin_date,end_date)
     context['beginDate'] = str(begin_date)
     context['endDate'] = str(end_date)
+    context['sports'] = sports
+    context['datesort'] = datesort
+    context['type'] = data_type
     return render(request,"graph.html",context)
 
 def fetch_data_view(request, **kwargs):
@@ -128,7 +134,6 @@ def fetchStrava(code,request):
         i += 1
         for strava_activity in strava_activities:
             if strava_activity["id"] not in current_ids:
-                print(strava_activity["name"])
                 activity               = Activity()
                 activity.strava_id     = strava_activity["id"]
                 activity.user          = request.user
@@ -136,7 +141,6 @@ def fetchStrava(code,request):
                 activity.activity_type = strava_activity["type"]
                 activity.date          = datetime.strptime(strava_activity['start_date'][2:10], '%y-%m-%d')
                 activity.timestamp     = datetime.timestamp(activity.date)
-                print(strava_activity)
                 if strava_activity['has_heartrate']:
                     activity.heartrate     = strava_activity['average_heartrate']
                     if 'suffer_score' in strava_activity:

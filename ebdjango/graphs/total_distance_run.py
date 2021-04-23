@@ -11,7 +11,7 @@ from io import BytesIO
 from collections import OrderedDict
 import matplotlib.dates as mdates
 
-def total_distance_run(activities, begin_date, end_date):
+def total_distance_run(activities, sports, datetype, begin_date, end_date):
     dag_afstand = {}
     for activity in activities:
         if activity.activity_type=='Run' and activity.date >= begin_date and activity.date <= end_date:
@@ -28,9 +28,6 @@ def total_distance_run(activities, begin_date, end_date):
             dag_totaal[k] = totaal_afstand
             if i == len(dag_afstand)-1: 
                 dag_totaal[k + timedelta(days=1)] = totaal_afstand
-
-        print(dag_afstand)
-
         fig, ax = plt.subplots()
         ax.grid(True, alpha=0.3)
         plt.fill_between(list(dag_totaal)[:-1],list(dag_totaal.values())[:-1], color = '#2CA02C')

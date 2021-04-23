@@ -4,6 +4,7 @@
         <title>The Triathlon Tracker</title>
         <meta charset="UTF-8">
         <script async src=https://CDN.JSDelivr.net/processing.js/latest/mainfile></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
             <meta name="viewport" content="width=device-width, initial-scale=1">
                 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
                     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
@@ -112,8 +113,69 @@
             if (endDate != ""){
                 new_url += "&endDate=" + endDate;
             }
+            new_url = new_url + '&'
+            var swim = document.getElementById("swim")
+            var bike = document.getElementById("bike")
+            var run = document.getElementById("run")
+            var other = document.getElementById("other")
+            
+            if (swim.checked){
+                new_url += "&sport=swim";
+            }
+            if (bike.checked){
+                new_url += "&sport=bike";
+            }
+            if (run.checked){
+                new_url += "&sport=run";
+            }
+            if (other.checked){
+                new_url += "&sport=other";
+            }
+            var week = document.getElementById("week")
+            var month = document.getElementById("month")
+            var year = document.getElementById("year")
+            var cumulatief = document.getElementById("cumulatief")
+            if (week.checked){
+                new_url += "&datesort=week";
+            }
+            if (month.checked){
+                new_url += "&datesort=month";
+            }
+            if (year.checked){
+                new_url += "&datesort=year";
+            }
+            if (cumulatief.checked){
+                new_url += "&datesort=cumulatief";
+            }
+            var time = document.getElementById("time")
+            var distance = document.getElementById("distance")
+            var effort = document.getElementById("effort")
+            if (time.checked){
+                new_url += "&type=time";
+            }
+            if (distance.checked){
+                new_url += "&type=distance";
+            }
+            if (effort.checked){
+                new_url += "&type=effort";
+            }
             window.location.href =  new_url;
         }
+    $( document ).ready(function() {
+        var sports =  '{{ sports|escapejs }}';
+        sports = sports.substring(1,sports.length-1)
+        sports = sports.split(",")
+        sports.forEach(sport => {
+            if (sport!= " "){
+                sport = sport.substring(sport.indexOf('\'')+1,sport.length-1)
+                document.getElementById(sport).checked = true;
+            }
+        });
+        var type = '{{type}}'
+        document.getElementById(type).checked = true;
+        var date_sort = '{{datesort}}'
+        document.getElementById(date_sort).checked = true;
+    });
     </script>
     </body>
 </html>
