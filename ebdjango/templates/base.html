@@ -5,46 +5,52 @@
         <meta charset="UTF-8">
         <script async src=https://CDN.JSDelivr.net/processing.js/latest/mainfile></script>
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-                <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-                    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-                            <style>
-        body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
-        .w3-row-padding img {margin-bottom: 12px}
-        /* Set the width of the sidebar to 120px */
-        .w3-sidebar {width: 120px;background: #222;}
-        /* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
-        #main {margin-left: 100px}
-        /* Remove margins from "page content" on small screens */
-        @media only screen and (max-width: 800px) {
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+        <style>
+            body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
+            .w3-row-padding img {margin-bottom: 12px}
+            /* Set the width of the sidebar to 120px */
+            .w3-sidebar {width: 120px;background: #222;}
+            /* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
+            #main {margin-left: 100px}
+            /* Remove margins from "page content" on small screens */
+            @media only screen and (max-width: 800px) {
                 #main {
                     margin-left: 0;
                     height: auto;
                 }
             }
 
-        button:hover{
-            background-color: yellow;
-            cursor: pointer;
-        }
-        
-        #main {
-            vertical-align: top;
-            display: grid;
-            grid-template-columns: 45% 55% ;
-        }
+            button:hover{
+                background-color: yellow;
+                cursor: pointer;
+            }
+            
+            #main {
+                vertical-align: top;
+                display: grid;
+                grid-template-columns: 45% 55% ;
+            }
 
-        button {
-            background-color: orange;
-            color: black;
-            border-radius: 20px;
-            border: 2px black;
-            padding: 8px;
-            text-align: center;
-            font-size: 14px;
-            margin: 5px; 
-        }
+            button {
+                background-color: orange;
+                color: black;
+                border-radius: 20px;
+                border: 2px black;
+                padding: 8px;
+                text-align: center;
+                font-size: 14px;
+                margin: 5px; 
+            }
+            .icon_text{
+                text-align:center;
+                padding-top:50px;
+                color:orange;
+
+            }
         </style>
     </head>
     <body class="w3-black">
@@ -52,7 +58,6 @@
             <div class="w3-xxlarge w3-bar w3-black">
                 <div style='color:orange'class="w3-left">
                     <b>The Triathlon Tracker </b> <br>
-                    Welcome {{request.user}}
                     <!-- <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu">
                         <i class="fa fa-bars"></i>
                     </a> -->
@@ -66,13 +71,18 @@
         <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center" style='visibility: hidden'>
         {% endif %}
             <a href="{%url 'fetch_data'%}" class="w3-bar-item w3-button w3-padding-large w3-black">
+                <i class="fa fa-user w3-xxlarge"></i>
+                <span class="icon_text">{{request.user | upper}}</span>
+                
+            </a>
+            <a href="{%url 'fetch_data'%}" class="w3-bar-item w3-button w3-padding-large w3-black">
                 <i class="fa fa-file-import w3-xxlarge"></i>
-                <p>FETCH RECENT</p>
+                <span class="icon_text">FETCH RECENT</span>
                 
             </a>
             <a href="{%url 'graphs'%}" class="w3-bar-item w3-button w3-padding-large w3-black">
                 <i class="fa fa-chart-area w3-xxlarge"></i>
-                <p>GRAPHS</p>
+                <span class="icon_text">GRAPHS</span>
                 
             </a>
             <!-- <a href="{%url 'predictor'%}" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
@@ -89,7 +99,7 @@
         function fetchData(graph){
             beginDate = document.getElementById("beginDate").value;
             endDate = document.getElementById("endDate").value;
-            url = "/graphs?getgraph=" + graph
+            url = "/graphs?"
             if (beginDate != ""){
                 url += "&beginDate=" + beginDate;
             }
@@ -106,7 +116,7 @@
             console.log("HIER2")
             beginDate = document.getElementById("beginDate").value;
             endDate = document.getElementById("endDate").value;
-            new_url = "/graphs?getgraph=" + graph
+            new_url = "/graphs?"
             if (beginDate != ""){
                 new_url += "&beginDate=" + beginDate;
             }

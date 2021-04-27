@@ -9,15 +9,16 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from datetime import datetime
+from datetime import date
 import re
 import base64
 from io import BytesIO
 import graphs
 import dateutil.parser
-from graphs import total_distance_bike, effort, progress, heartrate_speed_run,total_distance_run, \
-                    time_week, time_month, time,run_afstand_per_week, run_afstand_per_month, heartrate_years, heartrate_swim, average_heartrate_run, \
-                    bike_afstand_per_week, bike_afstand_per_month, progress2, machine_learning, stacked_time, piechart_time, \
-                    races, total_distance_swim
+from graphs import heartrate_speed_run, effort,\
+                    heartrate_years, heartrate_swim, average_heartrate_run, \
+                    MLprogress, machine_learning, piechart_time, \
+                    races
 import pyglet
 import runpy
 from django.shortcuts import redirect
@@ -55,13 +56,16 @@ def graph_view(request, **kwargs):
         request.user = 'Not Autorized'
     print(request.GET)
     end_date = request.GET.get('endDate','')
-    the_graph = request.GET.get('getgraph','effort')
-    if the_graph == 'null':
-        the_graph = 'total_distance_run'
     sports = request.GET.getlist('sport', None)
     datesort = request.GET.get('datesort', 'week')
     data_type = request.GET.get('type', 'time')
-    begin_date = dateutil.parser.isoparse(request.GET.get('beginDate','2010-01-01')).date()
+    begin_date = datetime.now().year
+    begin_date = request.GET.get('beginDate','')
+    if begin_date == '':
+        begin_date = date(datetime.today().year ,1,1)  
+    else:
+        begin_date = dateutil.parser.isoparse(begin_date).date()
+
     if end_date != '':
         end_date = dateutil.parser.isoparse(end_date).date()
     else:

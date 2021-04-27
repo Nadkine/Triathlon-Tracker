@@ -1,6 +1,8 @@
 import requests
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+import matplotlib
+matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -147,7 +149,6 @@ def effort(activities, sports, sort_date, data_type, begin_date, end_date):
             plt.xlabel("Months Ago")
         elif sort_date == 'year':
             plt.xlabel("Years Ago")
-       
         tmpfile = BytesIO()
         fig.savefig(tmpfile, format='png')
         encoded = base64.b64encode(tmpfile.getvalue()).decode('utf-8')

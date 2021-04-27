@@ -13,9 +13,9 @@
         body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
         .w3-row-padding img {margin-bottom: 12px}
         /* Set the width of the sidebar to 120px */
-        .w3-sidebar {width: 120px;background: #222;}
+        .w3-sidebar {width: 12px;background: #222;}
         /* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
-        #main {margin-left: 100px}
+        #main {margin-left: 10px}
         /* Remove margins from "page content" on small screens */
         @media only screen and (max-width: 800px) {
                 #main {
@@ -32,7 +32,7 @@
         #main {
             vertical-align: top;
             display: grid;
-            grid-template-columns: 45% 55% ;
+            grid-template-columns: 5% 95% ;
         }
 
         button {
@@ -59,7 +59,7 @@
                 </div>
             </div>
         </div>
-    <div class="w3-padding-large w3-content">
+    <div class="w3-padding-small ">
         <form method="POST">
             {% csrf_token %}
             <fieldset class="form-group">

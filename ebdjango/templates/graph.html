@@ -65,13 +65,27 @@
   transition-delay: 0.2s !important;
   transition: all 0.25s cubic-bezier(0, 1.05, 0.72, 1.07);
 }
+
+.selection_header{
+    width:100%;
+    text-align: left; 
+    color: orange
+}
+
+.selection_col{
+    text-align:left;
+}
+
+.data_label{
+    color:orange;
+}
 </style>
       <!-- Header/Home -->
 <div id='graph-table'>
     <table >
-        <tr>
-            <th>
-                <h2 style='text-align: left; color: orange'>Sport</h2>
+        <tr style=vertical-align:top;>
+            <th class='selection_col' >
+                <span class='selection_header' >Sport</span>
                 <div class="box">
                     <input type="checkbox" id="swim" name="Sport" onchange="dateChange()" >
                     <span class="check"></span>
@@ -93,8 +107,8 @@
                     <label for="other"> Other </label>
                 </div>
             </th>
-            <th>
-                <h2 style='text-align: left; color: orange'>Sort</h2>
+            <th class='selection_col'>
+                <span class='selection_header'>Sort</span>
                 <div class="box">
                     <input type="radio" id="time" name="type" value="time" onchange="dateChange()">
                     <span class="check radio"></span>
@@ -111,8 +125,8 @@
                     <label for="effort"> Effort </label>
                 </div>
             </th>
-            <th>
-                <h2 style='text-align: left; color: orange'>Date</h2>
+            <th class='selection_col'>
+                <span class='selection_header'>Date</span>
                 <div class="box">
                     <input type="radio" id="week" name="datesort" value="week" onchange="dateChange()">
                     <span class="check radio"></span>
@@ -138,9 +152,9 @@
     </table>    
 </div>
 <div id='right-side'>
-    <label  for="fname">Start Date</label> 
+    <label  class='data_label' for="fname">Start Date</label> 
     <input id='beginDate' type="date" value={{beginDate}} onchange="dateChange()"> </input>
-    <label  for="fname">End Date</label> 
+    <label class='data_label' for="fname">End Date</label> 
     <input id="endDate" type="date" value={{endDate}} onchange="dateChange()"> </input>
     <br/><br/>
     <img src={{graph}}>

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center" >
+    <a href="{%url 'fetch_data'%}" class="w3-bar-item w3-button w3-padding-large w3-black">
+        <i class="fa fa-file-import w3-xxlarge"></i>
+        <p>FETCH RECENT</p>
+        
+    </a>
+    <a href="{%url 'graphs'%}" class="w3-bar-item w3-button w3-padding-large w3-black">
+        <i class="fa fa-chart-area w3-xxlarge"></i>
+        <p>GRAPHS</p>
+        
+    </a>
+    <!-- <a href="{%url 'predictor'%}" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+        <i class="fa fa-table w3-xxlarge"></i>
+        <p>STATS</p>
+    </a> -->
+</nav>
+
+{% endblock %}

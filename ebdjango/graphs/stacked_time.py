@@ -1,6 +1,8 @@
 import requests
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+import matplotlib
+matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -133,6 +135,7 @@ def stacked_time(activities, sports, data_type, begin_date, end_date):
         tmpfile = BytesIO()
         fig.savefig(tmpfile, format='png')
         encoded = base64.b64encode(tmpfile.getvalue()).decode('utf-8')
+        #plt.close()
         return 'data:image/png;base64,{}'.format(encoded)
     else:
         return ''
