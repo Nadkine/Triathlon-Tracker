@@ -2,7 +2,6 @@ import requests
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 import matplotlib
-matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -17,39 +16,47 @@ def stacked_time(activities, sports, data_type, begin_date, end_date):
     day_ride_time = {}
     day_run_time = {}
     day_other_time = {}
+    day = timedelta(days=1)
+    checking_date = begin_date
+    while checking_date <= end_date:
+        day_swim_time[checking_date] = 0
+        day_ride_time[checking_date] = 0
+        day_run_time[checking_date] = 0
+        day_swim_time[checking_date] = 0
+        checking_date += day    
     for activity in activities:
         if activity.date >= begin_date and activity.date <= end_date:
             if activity.activity_type=='Swim' and 'swim' in sports:
                 if data_type == 'time':
-                    day_swim_time[activity.date] = activity.moving_time/3600
+                    day_swim_time[activity.date] += activity.moving_time/3600
                 if data_type == 'distance':
-                    day_swim_time[activity.date] = activity.distance
+                    day_swim_time[activity.date] += activity.distance
                 if data_type == 'effort' and activity.suffer != None:
-                    day_swim_time[activity.date] = activity.suffer
+                    day_swim_time[activity.date] += activity.suffer
 
             elif activity.activity_type=='Ride' and 'bike' in sports:
                 if data_type == 'time':
-                    day_ride_time[activity.date] = activity.moving_time/3600
+                    day_ride_time[activity.date] += activity.moving_time/3600
                 if data_type == 'distance':
-                    day_ride_time[activity.date] = activity.distance
+                    day_ride_time[activity.date] += activity.distance
                 if data_type == 'effort' and activity.suffer != None:
-                    day_ride_time[activity.date] = activity.suffer
+                    day_ride_time[activity.date] += activity.suffer
 
             elif activity.activity_type=='Run' and 'run' in sports:
                 if data_type == 'time':
-                    day_run_time[activity.date] = activity.moving_time/3600
+                    day_run_time[activity.date] += activity.moving_time/3600
                 if data_type == 'distance':
-                    day_run_time[activity.date] = activity.distance
+                    day_run_time[activity.date] += activity.distance
                 if data_type == 'effort' and activity.suffer != None:
-                    day_run_time[activity.date] = activity.suffer
+                    day_run_time[activity.date] += activity.suffer
 
             elif 'other' in sports and activity.activity_type!='Run' and activity.activity_type!='Ride' and activity.activity_type!='Swim':
                 if data_type == 'time':
-                    day_other_time[activity.date] = activity.moving_time/3600
+                    day_other_time[activity.date] += activity.moving_time/3600
                 if data_type == 'distance':
-                    day_other_time[activity.date] = activity.distance
+                    day_other_time[activity.date] += activity.distance
                 if data_type == 'effort' and activity.suffer != None:
-                    day_other_time[activity.date] = activity.suffer
+                    day_other_time[activity.date] += activity.suffer
                     
     if day_run_time or day_swim_time or day_ride_time or day_other_time:      
         total_time_swim = 0           
@@ -88,7 +95,7 @@ def stacked_time(activities, sports, data_type, begin_date, end_date):
         if len(list(day_other_time.keys())) != 0:
             min_other_day = list(day_other_time.keys())[0] 
         first_day = min(min_swim_day, min_run_day, min_ride_day, min_other_day)
-        delta = date.today() - first_day   
+        delta = end_date - first_day   
         first = True
         for i in range(delta.days + 1):
             day = first_day + timedelta(days=i)

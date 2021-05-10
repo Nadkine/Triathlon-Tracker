@@ -15,7 +15,7 @@ import base64
 from io import BytesIO
 import graphs
 import dateutil.parser
-from graphs import heartrate_speed_run, effort,\
+from graphs import heartrate_speed_run, effort, stacked_time,\
                     heartrate_years, heartrate_swim, average_heartrate_run, \
                     MLprogress, machine_learning, piechart_time, \
                     races

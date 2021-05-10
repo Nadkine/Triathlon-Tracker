@@ -3,7 +3,9 @@
 {% block content %}
 <style>
 
-@import url("https://fonts.googleapis.com/css?family=Quicksand:400,700&display=swap");
+.selection_header{
+    font-size:24px;
+}
 
 .box {
   width: 120px;
@@ -13,10 +15,9 @@
   user-select: none;
 }
 .box label {
-  font-size: 12px;
+  font-size:14px;
   color: orange;
   position: absolute;
-  z-index: 10;
   padding-left: 20px;
   cursor: pointer;
 }
@@ -77,7 +78,41 @@
 }
 
 .data_label{
+    font-size:14px;
     color:orange;
+} 
+.data_input{
+    font-size: 15px;
+    width: 200px;
+    height: 30px;
+}
+
+@media only screen and (max-width: 800px) {
+    .selection_header{
+        font-size:14px;
+    }
+    .box {
+        width: 100px;
+        margin: 10px 0;
+        display: flex;
+        align-items: center;
+        user-select: none;
+        }
+    .box label {
+        font-size:8px;
+        position: absolute;
+        padding-left: 20px;
+        cursor: pointer;
+    }
+    .data_label{
+        font-size:10px;
+        color:orange;
+    } 
+    .data_input{
+        font-size: 9px;
+        width: 100px;
+        height: 20px;
+    }
 }
 </style>
       <!-- Header/Home -->
@@ -153,11 +188,11 @@
 </div>
 <div id='right-side'>
     <label  class='data_label' for="fname">Start Date</label> 
-    <input id='beginDate' type="date" value={{beginDate}} onchange="dateChange()"> </input>
+    <input class='data_input' id='beginDate' type="date" value={{beginDate}} onchange="dateChange()"> </input>
     <label class='data_label' for="fname">End Date</label> 
-    <input id="endDate" type="date" value={{endDate}} onchange="dateChange()"> </input>
+    <input class='data_input' id="endDate" type="date" value={{endDate}} onchange="dateChange()"> </input>
     <br/><br/>
-    <img src={{graph}}>
+    <img style='width:100%'src={{graph}}>
 </div>
     
 {% endblock %}
