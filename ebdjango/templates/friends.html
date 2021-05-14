@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+
+.selection_header{
+    font-size:24px;
+}
+
+.box {
+  width: 120px;
+  margin: 15px 0;
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+.box label {
+  font-size:14px;
+  color: orange;
+  position: absolute;
+  padding-left: 20px;
+  cursor: pointer;
+}
+.box input {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+}
+.box input:checked ~ .check {
+  border-color: orange;
+  box-shadow: 0px 0px 0px 15px orange inset;
+}
+.box input:checked ~ .check::after {
+  opacity: 1;
+  transform: scale(1);
+}
+.box .check {
+  width: 15px;
+  height: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border-radius: 2px;
+  background-color: black;
+  border: 2px solid orange;
+  box-shadow: 0px 0px 0px 0px orange inset;
+  transition: all 0.15s cubic-bezier(0, 1.05, 0.72, 1.07);
+}
+
+.box .radio {
+    border-radius: 50px;
+}
+.box .check::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 4;
+  position: absolute;
+  transform: scale(0);
+  background-size: 50%;
+  background-image: url("http://s6.picofile.com/d/8392306668/c38c12a0-6db3-47d4-a80c-7dad8fab5186/checkmark.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  transition-delay: 0.2s !important;
+  transition: all 0.25s cubic-bezier(0, 1.05, 0.72, 1.07);
+}
+
+.selection_header{
+    width:100%;
+    text-align: left; 
+    color: orange
+}
+
+.selection_col{
+    text-align:left;
+}
+
+.data_label{
+    font-size:14px;
+    color:orange;
+} 
+.data_input{
+    font-size: 15px;
+    width: 200px;
+    height: 30px;
+}
+
+@media only screen and (max-width: 800px) {
+    .selection_header{
+        font-size:14px;
+    }
+    .box {
+        width: 100px;
+        margin: 10px 0;
+        display: flex;
+        align-items: center;
+        user-select: none;
+        }
+    .box label {
+        font-size:8px;
+        position: absolute;
+        padding-left: 20px;
+        cursor: pointer;
+    }
+    .data_label{
+        font-size:10px;
+        color:orange;
+    } 
+    .data_input{
+        font-size: 9px;
+        width: 100px;
+        height: 20px;
+    }
+}
+</style>
+      <!-- Header/Home -->
+<div id='graph-table'>
+    <!-- <table >
+        <tr style=vertical-align:top;>
+            <th class='selection_col' >
+                <span class='selection_header' >Friends</span>
+                {% for user in users %}
+                <div class="box">
+                    <input type="checkbox" id={{user}} name="Friend" onchange="friendSelected()" >
+                    <span class="check"></span>
+                    <label for="swim"> {{user}} </label>
+                </div>  
+                {% endfor %}
+            </th>
+        </tr>
+    </table> -->
+    <table >
+        <tr style=vertical-align:top;>
+            <th >
+                <div class="box">
+                    <input type="radio" id='beer' name="Friend" onchange="friendSelected()" >
+                    <span class="check"></span>
+                    <label for="swim"> beer </label>
+                </div>  
+            </th>
+        </tr>
+    </table>
+</div>
+    
+{% endblock %}

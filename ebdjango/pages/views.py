@@ -28,6 +28,8 @@ from activities.models import Activity
 import threading
 from multiprocessing.pool import ThreadPool
 import importlib
+from django.contrib.auth import get_user_model
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 #strava_api_link = "https://www.strava.com/oauth/authorize?client_id=50341&redirect_uri=http://localhost:8000/start&response_type=code&scope=activity:read_all"
@@ -54,7 +56,8 @@ def start_view(request, **kwargs):
 def graph_view(request, **kwargs):
     if request.user == '' or request.user == None:
         request.user = 'Not Autorized'
-    print(request.GET)
+        
+    requested_user = request.GET.get('requested_user',request.user)
     end_date = request.GET.get('endDate','')
     sports = request.GET.getlist('sport', None)
     datesort = request.GET.get('datesort', 'week')
@@ -71,9 +74,9 @@ def graph_view(request, **kwargs):
     else:
         end_date = dateutil.parser.isoparse(datetime.now().strftime("%Y-%m-%d")).date()
 
-    if len(activities) != Activity.objects.filter(user=request.user):
+    if len(activities) != Activity.objects.filter(user=requested_user):
         activities.clear()
-        for i in Activity.objects.filter(user=request.user):
+        for i in Activity.objects.filter(user=requested_user):
             activities.append(i)
     if datesort == 'cumulatief':
          context['graph'] = stacked_time.stacked_time(activities, sports, data_type, begin_date,end_date)
@@ -84,7 +87,17 @@ def graph_view(request, **kwargs):
     context['sports'] = sports
     context['datesort'] = datesort
     context['type'] = data_type
+    context['requested_user'] = requested_user
     return render(request,"graph.html",context)
+
+def friends_view(request, **kwargs):
+    if request.user == '' or request.user == None:
+        request.user = 'Not Autorized'
+    User = get_user_model()
+    users = User.objects.all()
+    print(users)
+    context['users'] = users
+    return render(request,"friends.html",context)
 
 def fetch_data_view(request, **kwargs):
     return redirect(strava_api_link, code=302)
