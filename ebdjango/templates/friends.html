@@ -3,145 +3,112 @@
 {% block content %}
 <style>
 
-.selection_header{
-    font-size:24px;
-}
-
-.box {
-  width: 120px;
-  margin: 15px 0;
-  display: flex;
-  align-items: center;
-  user-select: none;
-}
-.box label {
-  font-size:14px;
-  color: orange;
-  position: absolute;
-  padding-left: 20px;
+/* Dropdown Button */
+.dropbtn {
+  background-color: orange;
+  color: black;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
   cursor: pointer;
 }
-.box input {
-  opacity: 0;
-  visibility: hidden;
-  position: absolute;
-}
-.box input:checked ~ .check {
-  border-color: orange;
-  box-shadow: 0px 0px 0px 15px orange inset;
-}
-.box input:checked ~ .check::after {
-  opacity: 1;
-  transform: scale(1);
-}
-.box .check {
-  width: 15px;
-  height: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  border-radius: 2px;
-  background-color: black;
-  border: 2px solid orange;
-  box-shadow: 0px 0px 0px 0px orange inset;
-  transition: all 0.15s cubic-bezier(0, 1.05, 0.72, 1.07);
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+  background-color: orange;
 }
 
-.box .radio {
-    border-radius: 50px;
-}
-.box .check::after {
-  content: "";
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  z-index: 4;
-  position: absolute;
-  transform: scale(0);
-  background-size: 50%;
-  background-image: url("http://s6.picofile.com/d/8392306668/c38c12a0-6db3-47d4-a80c-7dad8fab5186/checkmark.svg");
+/* The search field */
+#myInput {
+  box-sizing: border-box;
+  background-position: 14px 12px;
   background-repeat: no-repeat;
-  background-position: center;
-  transition-delay: 0.2s !important;
-  transition: all 0.25s cubic-bezier(0, 1.05, 0.72, 1.07);
+  font-size: 16px;
+  padding: 14px 20px 12px 45px;
+  border: none;
+  border-bottom: 1px solid #e07614;
 }
 
-.selection_header{
-    width:100%;
-    text-align: left; 
-    color: orange
+/* The search field when it gets focus/clicked on */
+#myInput:focus {outline: 3px solid #e07614;}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
 }
 
-.selection_col{
-    text-align:left;
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: orange;
+  min-width: 230px;
+  border: 1px solid #e07614;
+  z-index: 1;
 }
 
-.data_label{
-    font-size:14px;
-    color:orange;
-} 
-.data_input{
-    font-size: 15px;
-    width: 200px;
-    height: 30px;
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
 }
 
-@media only screen and (max-width: 800px) {
-    .selection_header{
-        font-size:14px;
-    }
-    .box {
-        width: 100px;
-        margin: 10px 0;
-        display: flex;
-        align-items: center;
-        user-select: none;
-        }
-    .box label {
-        font-size:8px;
-        position: absolute;
-        padding-left: 20px;
-        cursor: pointer;
-    }
-    .data_label{
-        font-size:10px;
-        color:orange;
-    } 
-    .data_input{
-        font-size: 9px;
-        width: 100px;
-        height: 20px;
-    }
-}
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #e07614}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
 </style>
+<script>
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+function filterFunction() {
+  var input, filter, ul, li, a, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  div = document.getElementById("myDropdown");
+  a = div.getElementsByTagName("a");
+  for (i = 0; i < a.length; i++) {
+    txtValue = a[i].textContent || a[i].innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      a[i].style.display = "";
+    } else {
+      a[i].style.display = "none";
+    }
+  }
+}
+
+$( document ).ready(function() {
+    var sports =  '{{ sports|escapejs }}';
+    sports = sports.substring(1,sports.length-1)
+    sports = sports.split(",")
+    sports.forEach(sport => {
+        if (sport!= " "){
+            sport = sport.substring(sport.indexOf('\'')+1,sport.length-1)
+            document.getElementById(sport).checked = true;
+        }
+    });
+    var type = '{{type}}'
+    document.getElementById(type).checked = true;
+    var date_sort = '{{datesort}}'
+    document.getElementById(date_sort).checked = true;
+});
+</script>
       <!-- Header/Home -->
-<div id='graph-table'>
-    <!-- <table >
-        <tr style=vertical-align:top;>
-            <th class='selection_col' >
-                <span class='selection_header' >Friends</span>
-                {% for user in users %}
-                <div class="box">
-                    <input type="checkbox" id={{user}} name="Friend" onchange="friendSelected()" >
-                    <span class="check"></span>
-                    <label for="swim"> {{user}} </label>
-                </div>  
-                {% endfor %}
-            </th>
-        </tr>
-    </table> -->
-    <table >
-        <tr style=vertical-align:top;>
-            <th >
-                <div class="box">
-                    <input type="radio" id='beer' name="Friend" onchange="friendSelected()" >
-                    <span class="check"></span>
-                    <label for="swim"> beer </label>
-                </div>  
-            </th>
-        </tr>
-    </table>
+<div class="dropdown">
+    <button onclick="myFunction()" class="dropbtn">Search Friend</button>
+    <div id="myDropdown" class="dropdown-content">
+        <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+        {% for user in users %}
+        <a href="?friend={{user}}">{{user}}</a>
+        {% endfor %}
+    </div>
 </div>
+
     
 {% endblock %}

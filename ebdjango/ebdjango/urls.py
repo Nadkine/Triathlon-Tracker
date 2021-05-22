@@ -18,14 +18,17 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from pages import views as pages_views
 from users import views as users_views
+from user_profile import views as profile_views
+from friends import views as friends_views
 from django.views.generic.base import RedirectView
 from django.contrib.staticfiles.storage import staticfiles_storage
 
 urlpatterns = [
     path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('img/favicon.ico'))),
     path('', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('profile', profile_views.profile_view, name='profile'),
     path('graphs', pages_views.graph_view, name='graphs'),
-    path('friends', pages_views.friends_view, name='friends'),
+    path('friends', friends_views.friends_view, name='friends'),
     path('fetch_data', pages_views.fetch_data_view, name='fetch_data'),
     path('predictor', pages_views.predictor_view, name='predictor'),
     path('start', pages_views.start_view),

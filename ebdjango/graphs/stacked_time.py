@@ -22,7 +22,7 @@ def stacked_time(activities, sports, data_type, begin_date, end_date):
         day_swim_time[checking_date] = 0
         day_ride_time[checking_date] = 0
         day_run_time[checking_date] = 0
-        day_swim_time[checking_date] = 0
+        day_other_time[checking_date] = 0
         checking_date += day    
     for activity in activities:
         if activity.date >= begin_date and activity.date <= end_date:

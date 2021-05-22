@@ -144,6 +144,8 @@ def effort(activities, sports, sort_date, data_type, begin_date, end_date):
         plt.bar(time_swim, performance_swim, align='center', alpha=0.8,color = '#37699A', bottom=np.array(performance_run)+np.array(performance_ride))
         plt.bar(time_other, performance_other, align='center', alpha=0.8,color = '#FA3637', bottom=np.array(performance_run)+np.array(performance_ride)+np.array(performance_swim))
         plt.xticks(np.arange(0, total_time, step=steps))
+        bottom,top = plt.ylim()
+        plt.ylim(top=(top*1.05))
         if data_type == 'time':
             plt.ylabel("Hours")
         if data_type == 'distance':
