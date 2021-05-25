@@ -11,7 +11,11 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-
+try:
+    import pymysql
+    pymysql.install_as_MySQLdb()
+except ImportError:
+    print("Failed to import pymysql")
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = ""
@@ -23,10 +27,10 @@ with open('PrivateSettings.txt','r') as f:
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ['triathlontracker-dev.eu-central-1.elasticbeanstalk.com', 'localhost.com','localhost', '44.237.60.194','strava.tjeerdsantema.nl', 
-                '18.193.158.161','172.31.31.18','127.0.0.1','52.40.71.97', 
-                'triathlon-tracker.com']
+                '18.193.158.161','172.31.31.18','127.0.0.1','52.40.71.97', '18.192.229.48',
+                'triathlon-tracker.com','db-triathlontracker.cj43pzf7zuhv.eu-central-1.rds.amazonaws.com']
 
 
 # Application definition
@@ -80,13 +84,24 @@ WSGI_APPLICATION = 'ebdjango.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-
+# if 'RDS_HOSTNAME' in os.environ:
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    'ENGINE': 'django.db.backends.mysql',
+    'NAME': 'db-triathlontracker',
+    'USER': 'tjeerd',
+    'PASSWORD': 'Kikkeboekk1',
+    'HOST': 'db-triathlontracker.cj43pzf7zuhv.eu-central-1.rds.amazonaws.com',
+    'PORT': '3306',
     }
 }
+# else:
+#     DATABASES = {
+#         'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'dbp.sqlite3'),
+#         }
+#     }
 
 
 # Password validation
