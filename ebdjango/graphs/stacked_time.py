@@ -137,7 +137,6 @@ def stacked_time(activities, sports, data_type, begin_date, end_date):
         if data_type == 'effort' and activity.suffer != None:
             plt.ylabel("Body Strain")
         plt.xlabel("Date")
-       
 
         tmpfile = BytesIO()
         fig.savefig(tmpfile, format='png')

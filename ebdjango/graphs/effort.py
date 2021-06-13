@@ -20,13 +20,13 @@ def effort(activities, sports, sort_date, data_type, begin_date, end_date):
     date_suffer_ride = {}
     date_suffer_other = {}
     if sort_date == 'week':
-        total_time = ((end_date - timedelta(days=end_date.weekday())) - (begin_date - timedelta(days=begin_date.weekday()))).days / 7
+        total_time = ((end_date - timedelta(days=end_date.weekday())) - (begin_date - timedelta(days=begin_date.weekday()))).days / 7 + 1
     elif sort_date == 'month':
         total_time = (end_date.year - begin_date.year) * 12 + (end_date.month - begin_date.month) + 1
     elif sort_date == 'year':
-        total_time = (end_date.year - begin_date.year)
+        total_time = (end_date.year - begin_date.year) + 1
 
-    for i in range(int(total_time)+1):
+    for i in range(int(total_time)):
         time_suffer_swim[i] = 0   
         time_suffer_run[i] = 0   
         time_suffer_ride[i] = 0   
@@ -137,14 +137,27 @@ def effort(activities, sports, sort_date, data_type, begin_date, end_date):
         objects_other = list(time_suffer_other)
         time_other = list(time_suffer_other.keys())
         performance_other = list(time_suffer_other.values())
+
+        performance_prediction = (time_suffer_swim[0] + time_suffer_run[0] + time_suffer_ride[0] + time_suffer_other[0])
+        if sort_date == 'week':
+            performance_prediction = performance_prediction / (int(end_date.weekday()) + 1) * 7 - performance_prediction
+        elif sort_date == 'month':
+            performance_prediction = performance_prediction / end_date.day * 30 - performance_prediction 
+        elif sort_date == 'year':
+            performance_prediction = performance_prediction
+            #performance_prediction = performance_prediction / end_date.timetuple().tm_yday * 365 - performance_prediction
         fig = plt.figure()
         steps = 1 if int(total_time/6) == 0 else int(total_time/6)
         plt.bar(time_run, performance_run, align='center', alpha=0.8,color = '#349C34')
         plt.bar(time_ride, performance_ride, align='center', alpha=0.8,color = '#FBB536', bottom=performance_run)
         plt.bar(time_swim, performance_swim, align='center', alpha=0.8,color = '#37699A', bottom=np.array(performance_run)+np.array(performance_ride))
         plt.bar(time_other, performance_other, align='center', alpha=0.8,color = '#FA3637', bottom=np.array(performance_run)+np.array(performance_ride)+np.array(performance_swim))
+        if total_time == 0:
+            plt.bar([0],[performance_prediction] , align='center', alpha=1 ,color = '#AAAAAA',  bottom=np.array(performance_run)+np.array(performance_ride)+np.array(performance_swim)+np.array(performance_other))
+        else:
+            plt.bar(np.zeros(int(total_time)), np.append(performance_prediction,np.zeros(int(total_time)-1)) , align='center', alpha=1 , color = '#AAAAAA',  bottom=np.array(performance_run)+np.array(performance_ride)+np.array(performance_swim)+np.array(performance_other)) 
         plt.xticks(np.arange(0, total_time, step=steps))
-        bottom,top = plt.ylim()
+        _,top = plt.ylim()
         plt.ylim(top=(top*1.05))
         if data_type == 'time':
             plt.ylabel("Hours")
@@ -158,6 +171,8 @@ def effort(activities, sports, sort_date, data_type, begin_date, end_date):
             plt.xlabel("Months Ago")
         elif sort_date == 'year':
             plt.xlabel("Years Ago")
+        
+        plt.gca().invert_xaxis()
         tmpfile = BytesIO()
         fig.savefig(tmpfile, format='png')
         encoded = base64.b64encode(tmpfile.getvalue()).decode('utf-8')
