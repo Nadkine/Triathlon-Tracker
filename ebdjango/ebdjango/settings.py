@@ -11,11 +11,6 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-try:
-    import pymysql
-    pymysql.install_as_MySQLdb()
-except ImportError:
-    print("Failed to import pymysql")
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = ""
@@ -83,25 +78,21 @@ WSGI_APPLICATION = 'ebdjango.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-# if 'RDS_HOSTNAME' in os.environ:
+with open('DatabasePassword.txt','r') as f:
+    for line in f.read().splitlines(): 
+        password = line
+
 DATABASES = {
     'default': {
-    'ENGINE': 'django.db.backends.mysql',
-    'NAME': 'db-triathlontracker',
-    'USER': 'tjeerd',
-    'PASSWORD': 'Kikkeboekk1',
-    'HOST': 'db-triathlontracker.cj43pzf7zuhv.eu-central-1.rds.amazonaws.com',
-    'PORT': '3306',
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': 'TriathlonTracker',
+    'USER': 'tjeerdsje',
+    'PASSWORD': password,
+    'HOST': 'aa1fl9fjn6qg5kv.cj43pzf7zuhv.eu-central-1.rds.amazonaws.com',
+    'PORT': '5432',
+    'ATOMIC_REQUESTS': True
     }
 }
-# else:
-#     DATABASES = {
-#         'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'dbp.sqlite3'),
-#         }
-#     }
 
 
 # Password validation

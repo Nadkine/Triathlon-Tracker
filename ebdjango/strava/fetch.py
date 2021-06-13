@@ -28,6 +28,7 @@ from activities.models import Activity
 import threading
 from multiprocessing.pool import ThreadPool
 import importlib
+from django.db import transaction, IntegrityError
 
 def getAccessToken(code):
     auth_url = "https://www.strava.com/oauth/token"
@@ -92,4 +93,5 @@ def fetchStrava(code,request):
                         activity.workout_type  = 'niks'
                     else:
                         activity.workout_type  = strava_activity['workout_type']
-                activity.save()
+                activity.save() 
+                    
