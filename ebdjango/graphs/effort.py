@@ -140,11 +140,11 @@ def effort(activities, sports, sort_date, data_type, begin_date, end_date):
 
         performance_prediction = (time_suffer_swim[0] + time_suffer_run[0] + time_suffer_ride[0] + time_suffer_other[0])
         if sort_date == 'week':
-            performance_prediction = performance_prediction / (int(end_date.weekday()) + 1) * 7 - performance_prediction
+            performance_prediction = performance_prediction / (int(end_date.weekday()) + 1) * 7 
         elif sort_date == 'month':
-            performance_prediction = performance_prediction / end_date.day * 30 - performance_prediction 
+            performance_prediction = performance_prediction / end_date.day * 30 
         elif sort_date == 'year':
-            performance_prediction = performance_prediction
+            performance_prediction = performance_prediction / end_date.timetuple().tm_yday * 365
             #performance_prediction = performance_prediction / end_date.timetuple().tm_yday * 365 - performance_prediction
         fig = plt.figure()
         steps = 1 if int(total_time/6) == 0 else int(total_time/6)
@@ -153,9 +153,9 @@ def effort(activities, sports, sort_date, data_type, begin_date, end_date):
         plt.bar(time_swim, performance_swim, align='center', alpha=0.8,color = '#37699A', bottom=np.array(performance_run)+np.array(performance_ride))
         plt.bar(time_other, performance_other, align='center', alpha=0.8,color = '#FA3637', bottom=np.array(performance_run)+np.array(performance_ride)+np.array(performance_swim))
         if total_time == 0:
-            plt.bar([0],[performance_prediction] , align='center', alpha=1 ,color = '#AAAAAA',  bottom=np.array(performance_run)+np.array(performance_ride)+np.array(performance_swim)+np.array(performance_other))
+            plt.bar([0],[performance_prediction] , align='center',  fill=False,  ls='--')
         else:
-            plt.bar(np.zeros(int(total_time)), np.append(performance_prediction,np.zeros(int(total_time)-1)) , align='center', alpha=1 , color = '#AAAAAA',  bottom=np.array(performance_run)+np.array(performance_ride)+np.array(performance_swim)+np.array(performance_other)) 
+            plt.bar(np.zeros(int(total_time)), np.append(performance_prediction,np.zeros(int(total_time)-1)) , align='center',  fill=False, ls='--') 
         plt.xticks(np.arange(0, total_time, step=steps))
         _,top = plt.ylim()
         plt.ylim(top=(top*1.05))

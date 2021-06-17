@@ -59,7 +59,6 @@ def graph_view(request, **kwargs):
         request.user = 'Not Autorized'
         
     requested_user = request.GET.get('friend',request.user)
-    print(requested_user)
     end_date = request.GET.get('endDate','')
     sports = request.GET.getlist('sport', None)
     datesort = request.GET.get('datesort', 'week')
@@ -75,12 +74,10 @@ def graph_view(request, **kwargs):
         end_date = dateutil.parser.isoparse(end_date).date()
     else:
         end_date = dateutil.parser.isoparse(datetime.now().strftime("%Y-%m-%d")).date()
-    print(len(activities))
     if len(activities) != Activity.objects.filter(user=requested_user):
         activities.clear()
         for i in Activity.objects.filter(user=requested_user):
             activities.append(i)
-    print(len(activities))
     if datesort == 'cumulatief':
          context['graph'] = stacked_time.stacked_time(activities, sports, data_type, begin_date,end_date)
     else:
