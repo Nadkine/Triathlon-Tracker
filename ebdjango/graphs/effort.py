@@ -55,14 +55,14 @@ def effort(activities, sports, sort_date, data_type, begin_date, end_date):
                     date_suffer_run[activity.date] += activity.distance
                 if data_type == 'effort' and activity.suffer != None:
                     date_suffer_run[activity.date] += activity.suffer
-            elif activity.activity_type == 'Ride' and 'bike' in sports:
+            elif 'Ride' in activity.activity_type and 'bike' in sports:
                 if data_type == 'time':
                     date_suffer_ride[activity.date] += activity.moving_time/3600
                 if data_type == 'distance':
                     date_suffer_ride[activity.date] += activity.distance
                 if data_type == 'effort' and activity.suffer != None:
                     date_suffer_ride[activity.date] += activity.suffer
-            elif 'other' in sports and activity.activity_type != 'Swim' and activity.activity_type != 'Ride' and activity.activity_type != 'Run':
+            elif 'other' in sports and activity.activity_type != 'Swim' and 'Ride' not in activity.activity_type and activity.activity_type != 'Run':
                 if data_type == 'time':
                     date_suffer_other[activity.date] += activity.moving_time/3600
                 if data_type == 'distance':

@@ -22,7 +22,7 @@ with open('PrivateSettings.txt','r') as f:
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ['triathlontracker-dev.eu-central-1.elasticbeanstalk.com', 'localhost.com','localhost', '44.237.60.194','strava.tjeerdsantema.nl', 
                 '18.193.158.161','172.31.31.18','127.0.0.1','52.40.71.97', '18.192.229.48',
                 'triathlon-tracker.com','db-triathlontracker.cj43pzf7zuhv.eu-central-1.rds.amazonaws.com']
@@ -81,18 +81,23 @@ WSGI_APPLICATION = 'ebdjango.wsgi.application'
 with open('DatabasePassword.txt','r') as f:
     for line in f.read().splitlines(): 
         password = line
-
 DATABASES = {
     'default': {
-    'ENGINE': 'django.db.backends.postgresql',
-    'NAME': 'TriathlonTracker',
-    'USER': 'tjeerdsje',
-    'PASSWORD': password,
-    'HOST': 'aa1fl9fjn6qg5kv.cj43pzf7zuhv.eu-central-1.rds.amazonaws.com',
-    'PORT': '5432',
-    'ATOMIC_REQUESTS': True
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+# DATABASES = {
+#     'default': {
+#     'ENGINE': 'django.db.backends.postgresql',
+#     'NAME': 'TriathlonTracker',
+#     'USER': 'tjeerdsje',
+#     'PASSWORD': password,
+#     'HOST': 'aa1fl9fjn6qg5kv.cj43pzf7zuhv.eu-central-1.rds.amazonaws.com',
+#     'PORT': '5432',
+#     'ATOMIC_REQUESTS': True
+#     }
+# }
 
 
 # Password validation
