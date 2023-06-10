@@ -33,8 +33,8 @@ from strava import fetch
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-strava_api_link = "https://www.strava.com/oauth/authorize?client_id=50341&redirect_uri=http://localhost:8000/start&response_type=code&scope=activity:read_all"
-#strava_api_link = "https://www.strava.com/oauth/authorize?client_id=50341&redirect_uri=http://triathlon-tracker.com/start&response_type=code&scope=activity:read_all"
+#strava_api_link = "https://www.strava.com/oauth/authorize?client_id=50341&redirect_uri=http://localhost:8000/start&response_type=code&scope=activity:read_all"
+strava_api_link = "https://www.strava.com/oauth/authorize?client_id=50341&redirect_uri=http://triathlon-tracker.com/start&response_type=code&scope=activity:read_all"
 context = {}
 activities = []
 def start_view(request, **kwargs):
