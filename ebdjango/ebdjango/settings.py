@@ -25,7 +25,7 @@ with open('PrivateSettings.txt','r') as f:
 DEBUG = True
 ALLOWED_HOSTS = ['triathlontracker-dev.eu-central-1.elasticbeanstalk.com', 'localhost.com','localhost', '44.237.60.194','strava.tjeerdsantema.nl', 
                 '18.193.158.161','172.31.31.18','127.0.0.1','52.40.71.97', '18.192.229.48','85.147.12.166','192.168.178.43', '0.0.0.0',
-                'triathlon-tracker.com']
+                'triathlon-tracker.com', '3.70.215.154','172.31.47.101','ec2-3-70-215-154.eu-central-1.compute.amazonsaws.com']
 
 
 # Application definition
