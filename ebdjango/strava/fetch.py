@@ -88,7 +88,8 @@ def fetchStrava(code,request):
                 activity.moving_time   = strava_activity['elapsed_time']
                 activity.elevation     = strava_activity['total_elevation_gain']
                 activity.speed         = strava_activity['average_speed']
-                if activity.activity_type == "Run" or activity.activity_type == "Ride" :
+                print(activity.activity_type)
+                if activity.activity_type == "Run" or activity.activity_type == "Ride":
                     if strava_activity['workout_type'] == None:
                         activity.workout_type  = 'niks'
                     else:

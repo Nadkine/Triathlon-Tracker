@@ -43,7 +43,7 @@ while True:
             print(run)
             if run['has_heartrate'] != False: 
                 heartrate_run.append(run['max_heartrate'])
-        if run['type']=='Ride':
+        if 'Ride' in run['type']:
             print(run)
             if run['has_heartrate'] != False:
                 heartrate_bike.append(run['max_heartrate'])

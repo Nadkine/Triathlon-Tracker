@@ -22,7 +22,7 @@ def piechart_time(activities, begin_date, end_date):
         if activity.date >= begin_date and activity.date <= end_date:
             if activity.activity_type=='Swim':
                 total_time_swim += activity.moving_time / 60 / 60
-            if activity.activity_type=='Ride':
+            if 'Ride' in activity.activity_type:
                 total_time_ride += activity.moving_time / 60 / 60
             if activity.activity_type=='Run':
                 total_time_run += activity.moving_time / 60 / 60

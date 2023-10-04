@@ -102,7 +102,7 @@ def predictor_view(request):
     date = request.GET.get('date','')
     heartrate = request.GET.get('heartrate','')
     activities = Activity.objects.filter(user=request.user)
-    p1, p2 = progress2.get_progress_parameters(activities,distance,heartrate,date)
+    p1, p2 = MLprogress.get_progress_parameters(activities,distance,heartrate,date)
     return render(request,"predictor.html",{'p1':p1,'p2':p2})
 
 
